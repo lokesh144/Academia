@@ -285,7 +285,15 @@
      */
     --gutter         : 2.4rem;
 }
-
+.facebook-icon {
+    color: #0266ff; /* This is the official Facebook blue color */
+  }
+.youtube-icon {
+    color: #ff0000; /* This is the official Facebook blue color */
+  }
+.mail-icon {
+    color: #14fcf0;/* This is the official Facebook blue color */
+  }
 /* on medium screen devices
  */
 @media screen and (max-width: 1200px) {
@@ -3235,7 +3243,7 @@ img.u-pull-left {
 }
 
 .s-intro .social a {
-    color : white;
+    /* color : white; */
 }
 
 .s-intro .social li {
@@ -3617,9 +3625,9 @@ img.u-pull-left {
         margin-right : 0;
     }
 
-    .s-intro__content-bottom-block:last-child {
+    /* .s-intro__content-bottom-block:last-child {
         display : none;
-    }
+    } */
 }
 
 @media screen and (max-width: 400px) {
