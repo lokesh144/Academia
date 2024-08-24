@@ -21,6 +21,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "components/butoon.jsx", "components/Logadmin.jsx", "components/Logadmin.jsx", "components/Feature.jsx", "components/Sign.jsx", "components/dashboard/dash.jsx","middleware.ts", "components/Blogs.jsx"],
   "exclude": ["node_modules"]
 }

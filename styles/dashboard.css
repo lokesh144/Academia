@@ -1,0 +1,9 @@
+/* Override or disable Material Tailwind styles here */
+.noMaterialTailwind {
+    all: unset;
+    /* Add other overrides as needed */
+    
+  }
+  body{
+    background-color: white;
+  }

@@ -1,0 +1,5 @@
+.font-face {
+    font-family: 'Tasman';
+    src: url('../public/fonts/Tasman-SemiBold.ttf') format('truetype');
+    font-weight: 600; /* Adjust font weight as needed */
+  }
