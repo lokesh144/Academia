@@ -31,6 +31,7 @@ app.use("/",router);
 //      Handle data processing and saving to the database
 //     res.status(200).json({ message: 'Data received', data });
 // });
+const PORT = process.env.PORT || 3000;
 connectDb().then(()=>{
     app.listen(PORT,()=>{
         console.log(`Server is listening on port ${PORT}`);
