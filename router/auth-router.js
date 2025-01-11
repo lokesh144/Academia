@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
 // const { format } = require('date-fns');
-import {Notice,Event} from '../models/user-model.js';
+import {Notice,Event,Application} from '../models/user-model.js';
 const router = Router();
 // const findStudentByBirthday = require('../controller/birthdays.js')
 router.get('/', function(req, res) {
@@ -26,8 +26,6 @@ router.post('/api/notice', async function(req, res) {
   });
     // Handle data processing and saving to the database
     // res.status(200).json({ message: {data} });
-    
-  
     try {
       const savedNotice = await newNotice.save();
       res.json(savedNotice);
@@ -93,5 +91,26 @@ router.get('/api/event', async function( req,res) {
 
 
 // Get all users
+router.post('/api/teachers', async function(req, res) {
+  // res.send('This is the notice page');
+  console.log(req.body)
+  // const { ...data } = req.body;
+  const { fname,lname,email,contact } = req.body;
 
+  // console.log(data);
+  const newApplication = new Application({
+    fname,
+    lname,email,contact
+  });
+    // Handle data processing and saving to the database
+    // res.status(200).json({ message: {data} });
+    
+  
+    try {
+      const savedApplication = await newApplication.save();
+      res.json(savedApplication);
+    } catch (error) {
+      res.status(500).json({ error: 'Error saving data to database' });
+    }
+});
 export default router;
