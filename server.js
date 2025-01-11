@@ -32,7 +32,7 @@ app.use("/",router);
 //     res.status(200).json({ message: 'Data received', data });
 // });
 connectDb().then(()=>{
-    app.listen(5000,()=>{
-        console.log(`Server is listening on port 5000`);
+    app.listen(PORT,()=>{
+        console.log(`Server is listening on port ${PORT}`);
     });
 });
