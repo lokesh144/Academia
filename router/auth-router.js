@@ -11,7 +11,7 @@ router.get('/api/notice', function(req, res) {
   // res.send('This is the notice page');
   const { data } = req.body;
     // Handle data processing and saving to the database
-    res.status(200).json({ message: 'Data received', data });
+    res.status(200).json({ message: data });
 });
 router.post('/api/notice', async function(req, res) {
   // res.send('This is the notice page');
@@ -27,6 +27,7 @@ router.post('/api/notice', async function(req, res) {
     // Handle data processing and saving to the database
     // res.status(200).json({ message: {data} });
     try {
+      console.log(newNotice)
       const savedNotice = await newNotice.save();
       res.json(savedNotice);
     } catch (error) {
