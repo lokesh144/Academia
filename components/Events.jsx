@@ -13,7 +13,7 @@ const Events = () => {
   const fetchNotice = async () => {
     // alert("Notice added successfully");
     try {
-        const res = await fetch('http://localhost:5000/api/event', {
+        const res = await fetch('https://academia-4hz2.onrender.com/api/event', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

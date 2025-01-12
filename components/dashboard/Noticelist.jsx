@@ -30,7 +30,7 @@ const Noticelist = () => {
       UI/UX Review Check
     </h5>
     <p className="block font-sans text-base antialiased font-light leading-relaxed text-inherit">
-      Because it's about motivating the doers. Because I'm here to follow my
+      Because its about motivating the doers. Because Im here to follow my
       dreams and inspire others.
     </p>
   </div>

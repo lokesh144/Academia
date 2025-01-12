@@ -106,7 +106,7 @@ const BlogCard = ({ image, date, title, description, tags }) => {
             mistakes; they teach us far more than compliments ever will.
             Ultimately, what truly matters is how our actions inspire and
             motivate others. Some will be ignited by our endeavors, while others
-            may be offended—it&apos;s all part of the process. I'm here to
+            may be offended—it&apos;s all part of the process. I&apos;m here to
             pursue my dreams and encourage others to do the same.
             <br /> <br />
             Now is the time to embrace greatness without fear of judgment. Some
@@ -133,7 +133,7 @@ const EventCard = () => {
     {
       image: 'https://plus.unsplash.com/premium_photo-1670985849616-6aa6c441e0bf?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
       date: 'January 2024',
-      title: 'Autodesk looks to future of 3D printing with Project',
+      title: 'आवर पीसल्याण्ड एकेडेमीमा खेलकुद प्रतियोगिता',
       description: 'Don’t be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves',
       tags: ['Product', 'Design', 'UX']
     },
@@ -167,16 +167,16 @@ const EventCard = () => {
           <Typography
             variant="h1"
             color="blue-gray"
-            className="my-2 !text-2xl lg:!text-4xl"
+            className="my-2 !text-2xl lg:!text-4xl uppercase"
           >
-            RECENT EVENTS
+            RECENT Posts
           </Typography>
-          <Typography
+          {/* <Typography
             variant="lead"
             className="mx-auto w-full !text-gray-500 max-w-4xl"
           >
             Lorem ipsum dolor sit amet.
-          </Typography>
+          </Typography> */}
         </div>
     <div className="flex flex-wrap justify-center p-0">
       {posts.map(post => (

@@ -18,6 +18,45 @@ const myFont = localFont({
   src: [{path:'../public/fonts/Tasman-SemiBold.ttf'},],
   variable: '--font-tasman'
 })
+const tasman = localFont({
+  src: [
+    {
+      path: '../public/fonts/Tasman-Regular.ttf',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: '../public/fonts/Tasman-Italic.ttf',
+      weight: '400',
+      style: 'italic',
+    },
+    {
+      path: '../public/fonts/Tasman-Bold.ttf',
+      weight: '700',
+      style: 'bold',
+    },
+    {
+      path: '../public/fonts/Tasman-Medium.ttf',
+      weight: '500',
+      style: 'medium',
+    },
+    {
+      path: '../public/fonts/Tasman-SemiBold.ttf',
+      weight: '600',
+      style: 'semibold',
+    },
+    {
+      path: '../public/fonts/Tasman-SemiBoldItalic.ttf',
+      weight: '600',
+      style: 'italic',
+    },
+    {
+      path: '../public/fonts/Tasman-ExtraBold.ttf',
+      weight: '800',
+      style: 'extrabold',
+    },
+  ],
+})
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -29,7 +68,7 @@ export default function RootLayout({
 // export default function RootLayout({ children }: RootLayoutProps)
 
   return (
-    <html lang="en" className={`${myFont.variable} font-tas bg-white`}>
+    <html lang="en" className={`${tasman.className} font-tas bg-white`}>
       <head><link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"

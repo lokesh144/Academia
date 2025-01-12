@@ -1,16 +1,18 @@
 'use client'
 import React,{useState} from 'react'
 import { ToastContainer } from 'react-toastify'; // Import toast function
-import {imageUploadComplete,imageUploadError} from '../uploadthing/upload';
+import {ImageUploadComplete,ImageUploadError} from '../uploadthing/upload';
 import 'react-toastify/dist/ReactToastify.css';
 // import 'onImageUploadComplete' 
 const ImageUpload2 = () => {
   
   return (
-    <div><ToastContainer/><ImageUpload
+    <div><ToastContainer/>
+    {/* <ImageUpload
     onImageUploadComplete={imageUploadComplete}
     onImageUploadError={imageUploadError}
-/></div>
+/> */}
+</div>
   )
 }
 

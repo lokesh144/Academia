@@ -7,16 +7,18 @@ const year = new Date().getFullYear();
 const Footer=({ title, description, socials, menus, copyright }) =>{
   return (
     <>
-    <footer className="relative px-4 pt-8 pb-6 bg-white">
+    <footer className="relative px-4 pt-2 pb-6 bg-white">
       <div className="container mx-auto">
-        <div className="flex flex-wrap pt-6 text-center lg:text-left">
-          <div className="w-full px-12 lg:w-8/12">
+        <div className="flex flex-wrap pt-6 text-left">
+         
+          <div className="mx-8 mt-12 grid lg:grid-cols-3 gap-x-32 lg:mt-0">
+          <div className="w-full px-12 lg:w-96">
             <Typography variant="h4" className="mb-4" color="blue-gray">
               {title}
             </Typography>
-            <Typography className="font-normal text-blue-gray-500 lg:w-2/5">
+            {/* <Typography className="font-normal text-blue-gray-500 lg:w-56">
               {description}
-            </Typography>
+            </Typography> */}
             <div className="mx-auto mt-6 mb-8 flex justify-center gap-2 md:mb-0 lg:justify-start">
               {socials.map(({ color, name, path }) => (
                 <a
@@ -34,11 +36,10 @@ const Footer=({ title, description, socials, menus, copyright }) =>{
               ))}
             </div>
           </div>
-          <div className="mx-auto mt-12 grid w-max grid-cols-2 gap-24 lg:mr-[90px] lg:mt-0">
             {menus.map(({ name, items }) => (
               <div key={name}>
                 <Typography
-                  variant="small"
+                  variant="h5"
                   color="blue-gray"
                   className="mb-2 block font-bold uppercase"
                 >
@@ -46,18 +47,19 @@ const Footer=({ title, description, socials, menus, copyright }) =>{
                 </Typography>
                 <ul className="mt-3">
                   {items.map((item) => (
-                    <li key={item.name}>
-                      <Typography
-                        as="a"
-                        href={item.path}
-                        target="_blank"
-                        rel="noreferrer"
-                        variant="small"
-                        className="mb-2 block font-normal text-blue-gray-500 hover:text-blue-gray-700"
-                      >
-                        {item.name}
-                      </Typography>
-                    </li>
+                    
+                      // <Typography
+                      //   as="a"
+                      //   href={item.path}
+                      //   target="_blank"
+                      //   rel="noreferrer"
+                      //   variant="paragraph"
+                      //   className="mb-2 block font-normal text-blue-gray-500 hover:text-blue-gray-700"
+                      // >
+                      <span key={item.name}><a href={item.path} key={item.name} variant="paragraph" className="mb-2 block font-normal text-blue-gray-500 hover:text-blue-gray-700" >
+                        {item.name}</a></span>
+                      // </Typography>
+                    
                   ))}
                 </ul>
               </div>
@@ -68,7 +70,7 @@ const Footer=({ title, description, socials, menus, copyright }) =>{
         <div className="flex flex-wrap items-center justify-center md:justify-between">
           <div className="mx-auto w-full px-4 text-center">
             <Typography
-              variant="small"
+              variant="paragraph"
               className="font-normal text-blue-gray-500"
             >
               {copyright}
@@ -82,7 +84,7 @@ const Footer=({ title, description, socials, menus, copyright }) =>{
 }
 
 Footer.defaultProps = {
-  title: "Our Peaceland Academy",
+  title: "Follow us on Socials",
   description:
     "Connect with us in these socials",
   socials: [
@@ -147,7 +149,7 @@ Footer.defaultProps = {
   ],
   copyright: (
     <>
-      Copyright © {year} ||OPA||
+      Copyright © {year} | OPA |
     </>
   ),
 };

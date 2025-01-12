@@ -11,7 +11,7 @@ import {
     Textarea,
     Checkbox,
   } from "@material-tailwind/react";
-  import { FingerPrintIcon, UsersIcon } from "@heroicons/react/24/solid";
+  import { FingerPrintIcon, AcademicCapIcon } from "@heroicons/react/24/solid";
 //   import { PageTitle, Footer } from "@/widgets/layout";
 //   import { FeatureCard, TeamCard } from "@/widgets/cards";
 //   import { featuresData, teamData, contactData } from "@/data";
@@ -36,7 +36,7 @@ const secCard = () => {
       <div className="mt-32 flex flex-wrap items-center">
         <div className="mx-auto -mt-8 w-full md:w-5/12">
           <div className="mb-6 inline-flex h-16 w-16 items-center justify-center rounded-full bg-blue-gray-900 p-2 text-center shadow-lg">
-            <FingerPrintIcon className="h-8 w-8 text-white " />
+            <AcademicCapIcon className="h-8 w-8 text-white " />
           </div>
           <Typography
             variant="h2"
@@ -45,15 +45,12 @@ const secCard = () => {
           >
             Your only destiny to Bright Academic Future
           </Typography>
-          <Typography className="text-base mb-8 font-normal text-blue-gray-500">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci, architecto porro? Fugiat ducimus reiciendis, officiis tempora earum libero id voluptate.
-            <br />
-            <br />
-            The kit comes with three pre-built pages to help you get started
-            faster. You can change the text and images and you're good to
-            go. Just make sure you enable them first via JavaScript.
+          <Typography className="text-[1.1rem] mb-8 font-normal text-blue-gray-700 leading-8">
+          &quot;Our Peaceland Academy&quot; is located at Butwal Sub-Metropolitan City in quiet and peaceful environment. With the motto to provide quality education to children for global challenges, it has almost all facilities for all-round development of the students. Our Peaceland Academy has appropriate environment for learning and reading. We have qualified and dedicated teaching faculties.
           </Typography>
-          <Button variant="filled">read more</Button>
+          {/* <button  className="px-6 py-2 border-2 border-black text-black rounded-full hover:bg-[#008acb] hover:text-white hover:border-[#008acb] transition font-semibold text-lg">
+        Read More
+      </button> */}
         </div>
         <div className="mx-auto mt-24 flex w-full justify-center px-4 md:w-4/12 lg:mt-0">
           {/* <Card className="shadow-lg border shadow-gray-500/10 rounded-lg">

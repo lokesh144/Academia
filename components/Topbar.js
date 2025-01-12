@@ -9,8 +9,8 @@ export default function Topbar() {
   return (
     <nav className="bg-white">
       <div className="justify-end sm:flex">
-      <div className="w-0 lg:w-1/3 h-12 hidden lg:block"></div>
-      <div className="topbar w-2/3 h-12 bg-gray-200 flex justify-end space-x-10 px-8 text-sm sm:text-base">
+      <div className="w-0 lg:w-1/3 h-11 hidden lg:block"></div>
+      <div className="topbar w-2/3 h-11 bg-gray-200 flex justify-end space-x-10 px-8 text-sm sm:text-base">
         <div className="block sm:flex items-center space-x-4">
           <div className="contact flex items-center space-x-2">
           <PhoneIcon className="text-gray-600"/>

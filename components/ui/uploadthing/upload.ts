@@ -11,7 +11,7 @@ type TUploadThingResponseData = {
     url: string;
   };
  
-  const imageUploadComplete = (data: TUploadThingResponseData[]) => {
+  const ImageUploadComplete = (data: TUploadThingResponseData[]) => {
     const [imgageUrl, setImageUrl] = useState('')
     setImageUrl(data[0].url)
     return ({
@@ -21,11 +21,11 @@ type TUploadThingResponseData = {
     })
 }
 
-const imageUploadError = (error: Error) => {
+const ImageUploadError = (error: Error) => {
     return ({
         title: 'Image Upload Failed',
         variant: 'destructive',
         description: error.message
         })
     }
-export {imageUploadComplete,imageUploadError}
+export {ImageUploadComplete,ImageUploadError}

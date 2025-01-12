@@ -1,13 +1,13 @@
 'use client'
 import React,{useState} from 'react'
-interface LoginProps {
-  onLogin: (email: string, password: string) => void;
-}
+// interface LoginProps {
+//   onLogin: (email: string, password: string) => void;
+// }
 // import type { TypographyProps } from "@material-tailwind/react";
 import { Typography, Input, Button } from "@material-tailwind/react";
 import { EyeSlashIcon, EyeIcon } from "@heroicons/react/24/solid";
 // import { registerUserAction } from "@/app/data/actions/auth-actions";
-const Logadmin : React.FC<LoginProps> = ({onLogin}) => {
+const Logadmin = ({onLogin}) => {
     // const [passwordShown, setPasswordShown] = useState(false);
     // const togglePasswordVisiblity = () => setPasswordShown((cur) => !cur);
     const [email, setEmail] = useState('');

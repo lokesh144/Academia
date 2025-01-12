@@ -16,28 +16,28 @@ const ImgCarousel = () => {
     //   return () => clearInterval(intervalId); // Cleanup interval on unmount
     // }, []);
   return (
-    <div className="relative h-screen w-screen">
+    <div className="relative h-screen">
 <Carousel transition={{ type: "tween",duration: 1 }} autoplayDelay={3000} autoplay={true} infinite={true} loop={true}>
       <img
-        src="/carousel1.jpg"
+        src="https://utfs.io/f/QoBGn9AkhKS3ptN8bR3GYtWhMgf2HkXDaw1nbxNZFq9u4jTo"
         alt="image 1"
         className="h-full w-full object-center"
       />
       <img
-        src="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80"
+        src="https://utfs.io/f/QoBGn9AkhKS3t6xxIrPo2DneFWpShsEQkA5O3BR869MlmgKa"
         alt="image 2"
         className="h-full w-full object-center"
       />
       <img
-        src="https://images.unsplash.com/photo-1518623489648-a173ef7824f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2762&q=80"
+        src="https://utfs.io/f/QoBGn9AkhKS3bzTAQCfFoy0NrzbY71Ak2qv3xC6h9KinVIuL"
         alt="image 3"
         className="h-full w-full object-center"
       />
-      {/* <img
-        src="https://images.unsplash.com/photo-1518623489648-a173ef7824f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2762&q=80"
+      <img
+        src="https://utfs.io/f/QoBGn9AkhKS3CYskTPp5O7e1ugcEXvaV02lmGFB9xRWNhyj8"
         alt="image 3"
         className="h-full w-full object-cover object-center"
-      /> */}
+      />
     </Carousel>
     </div>
   )

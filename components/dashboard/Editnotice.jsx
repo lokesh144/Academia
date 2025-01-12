@@ -205,7 +205,7 @@ const EditNotice = () => {
 <h3 className="mb-4 font-semibold text-gray-900 dark:text-white">Classes</h3>
 <ul className="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg mb-5 sm:flex flex-wrap dark:bg-gray-700 dark:border-gray-600 dark:text-white">
 {classes.map(classed => (
-        <div className="flex w-max mb-5">
+        <div key={classed.id} className="flex w-max mb-5">
             <Checkbox color="black" key={classed.id}/>
             <label for="vue-checkbox-list" className="w-full py-3 text-sm font-medium text-gray-900 dark:text-gray-300 mr-2">{classed.title}</label>
         </div>

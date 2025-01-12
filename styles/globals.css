@@ -41,7 +41,7 @@ body {
   animation: slide 12s linear infinite;
 }
 .animate-shake {
-  animation: shake 1s linear infinite;
+  animation: shake 1s linear;
 }
 
 @keyframes slide {
@@ -49,15 +49,11 @@ body {
   100% { transform: translateX(-100%); }
 }
 @keyframes shake {
-  0%, 100% {
-    transform: translateX(0);
-  }
-  10%, 30%, 50%, 70%, 90% {
-    transform: translateX(-15px);
-  }
-  20%, 40%, 60%, 80% {
-    transform: translateX(15px);
-  }
+  0% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(-15px, 0px) rotate(-5deg); }
+  50% { transform: translate(15px, 0px) rotate(0deg); }
+  75% { transform: translate(-10px, 0px) rotate(-5deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
 }
 .topbar{
   position: relative;
@@ -97,3 +93,81 @@ body {
 .no-background-image {
   background-color: white !important;
 }
+
+
+/* .sticky .expand {
+  transform: translateY(-100%); 
+} */
+
+/* .sticky .expand {
+  transform: translateY(100px); 
+} */
+
+/* Optional: Add a keyframe animation for additional smoothness */
+@keyframes slideDown {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.expand {
+  animation: slideDown 1s ease-out;
+}
+
+/* .shining-border {
+  border: double 1em transparent;
+  border-width: 2.5px;
+  border-style: solid;
+  border-image: linear-gradient(to right, darkblue, darkorchid) 1;
+  border-radius: 1rem;
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+} */
+.shining-border {
+  position: relative;
+  border: 4px solid transparent;
+  border-radius: 16px;
+  background: linear-gradient(rgb(222, 250, 65), rgb(250, 250, 250));
+  background-clip: padding-box;
+  padding: 10px;
+  /* just to show box-shadow still works fine */
+  box-shadow: 0 3px 9px black, inset 0 0 9px white;
+}
+
+.shining-border::after {
+  position: absolute;
+  top: -4px; bottom: -4px;
+  left: -4px; right: -4px;
+  background: linear-gradient(red, blue);
+  content: '';
+  z-index: -1;
+  border-radius: 16px;
+}
+.outer-circle {
+  background-image: linear-gradient(#008acb, #ffff, #f79d1c);
+  width: 305px;
+  height: 305px;
+  border-style: solid;
+  border-color: transparent;
+  border-radius: 50%;
+  border-width: 0;
+  /* animation: rotateCircle 3s linear infinite; */
+  padding: 2px;
+  display: table;
+  
+}
+  .inner-circle {
+    background: #ffff;
+    height: 305px;
+    width: 305px;
+    border-style: solid;
+    border-color: transparent;
+    border-radius: 50%;
+    border-width: 3px;
+    /* animation: rotateCircle 3s linear infinite reverse; */
+    display: table;
+    text-align: center;
+  }

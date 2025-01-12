@@ -7,6 +7,7 @@ import Teamn from "@/components/Teamn";
 import Feature from "@/components/Feature";
 import Footer from "@/components/Footer";
 import EventCard from "@/components/RecentEvents";
+import Chairperson from "@/components/Chairperson"
 
 export default function Home() {
   return (
@@ -15,6 +16,7 @@ export default function Home() {
     <Navbarr/>
     <ImgCarousel/>
     <Card/>
+    <Chairperson/>
     <Feature/>
     <Teamn/>
     <EventCard/>

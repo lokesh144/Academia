@@ -8,12 +8,13 @@ import {
     Typography,
     Button,
     IconButton,
-    Card,
+    Menu,MenuHandler,MenuList,MenuItem
   } from "@material-tailwind/react";
 const Navbarr = () => {
-    const [openNav, setOpenNav] = React.useState(false);
+    const [openNav, setOpenNav] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
-    React.useEffect(() => {
+    const [isExpanded, setIsExpanded] = useState(false);
+    useEffect(() => {
       window.addEventListener(
         "resize",
         () => window.innerWidth >= 960 && setOpenNav(false),
@@ -32,14 +33,30 @@ const Navbarr = () => {
         window.removeEventListener('scroll', handleScroll);
       };
     }, []);
-
+    useEffect(() => {
+      const makeScroll = () => {
+        if (window.scrollY > 50) {
+            setIsExpanded(true);
+        } else {
+            setIsExpanded(false);
+        }
+      };
+  
+      // Add scroll event listener
+      window.addEventListener('scroll', makeScroll);
+  
+      // Cleanup event listener on component unmount
+      return () => {
+        window.removeEventListener('scroll', makeScroll);
+      };
+    }, [isExpanded]);
     const navList=(
     <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6 font-tas">
     <Typography
       as="li"
       variant=""
       color="blue-gray"
-      className="p-1 font-tas text-base"
+      className="p-1 font-tas text-[1.08rem] font-bold"
     >
       <Link href="/" className="flex items-center">
         Home
@@ -49,7 +66,7 @@ const Navbarr = () => {
       as="li"
       variant=""
       color="blue-gray"
-      className="p-1 font-tas text-base"
+      className="p-1 font-tas text-[1.08rem] font-bold"
     >
       <Link href="/gallery" className="flex items-center">
         Gallery
@@ -59,29 +76,41 @@ const Navbarr = () => {
       as="li"
       variant=""
       color="blue-gray"
-      className="p-1 font-tas text-base"
+      className="p-1 font-tas text-[1.08rem] font-bold"
     >
       <Link href="/event" className="flex items-center">
         Events
       </Link>
     </Typography>
-    <Typography
+    
+    <Menu allowHover='true'  animate={{
+        mount: { y: 0 },
+        unmount: { y: 25 },
+      }}>
+      <MenuHandler>
+      <Typography
       as="li"
       variant=""
       color="blue-gray"
-      className="p-1 font-tas text-base"
+      className="p-1 font-tas text-[1.08rem] font-bold"
     >
-      <a href="/notices" className="flex items-center">
+      <a href="/#" className="flex items-center">
         Notices
       </a>
     </Typography>
+      </MenuHandler>
+      <MenuList>
+      <a href="/notices" style={{border:"none"}}><MenuItem>General Notices</MenuItem></a>
+        <MenuItem>Important Notices</MenuItem>
+      </MenuList>
+    </Menu>
     <Typography
       as="li"
       variant=""
       color="blue-gray"
-      className="p-1 font-tas text-base"
+      className="p-1 font-tas text-[1.08rem] font-bold"
     >
-      <a href="#" className="flex items-center">
+      <a href="/contact" className="flex items-center">
         Contact
       </a>
     </Typography>
@@ -89,7 +118,7 @@ const Navbarr = () => {
 );
   return (
     // <div className="-m-6 max-h-[768px] w-[calc(100%+48px)] overflow-scroll">
-    <Navbar className={`sticky top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-20 lg:pb-2 ${isScrolled ? 'bg-transparent' : 'custom-navbar'}`}>
+    <Navbar className={`sticky border-none top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-20 lg:pb-2 ${isScrolled ? 'bg-opacity-60' : 'custom-navbar'} ${isExpanded ? 'expand' : ''}`}>
       <div className="flex items-center justify-between text-blue-gray-900">
         {/* <Typography
           as="a"
@@ -100,8 +129,8 @@ const Navbarr = () => {
         </Typography> */}
         <Image
       src="/OPAlogo.png"
-      width={65}
-      height={65}
+      width={55}
+      height={55}
       alt="OPA Logo"
     />
         <div className="flex items-center gap-4">
@@ -117,9 +146,10 @@ const Navbarr = () => {
             <Button
               variant="linear"
               size="sm"
-              className="hidden lg:inline-block font-tas text-sm rounded-xl"
-            >
+              className="hidden lg:inline-block font-tas text-[0.95rem] rounded-2xl bg-[#3b705b]"
+            ><Link href="/teacherlogin">
               <span>Be Teacher</span>
+              </Link>
             </Button>
           </div>
           <IconButton

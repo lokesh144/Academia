@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import Link from 'next/link';
-import {getSession} from '@/src/lib';
+import { useFormState } from 'react-dom';
 // import '@/styles/dashboard.css'; 
 // import LayoutWithoutMaterialTailwind from '@/components/LayoutWithoutMaterialTailwind';
 import {
@@ -26,12 +26,16 @@ import {
 } from "@heroicons/react/24/solid";
 // import useAuth from '@/src/hooks/useAuth';
 import { ChevronRightIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
+import {logout} from '@/src/actions';
 const Dashboard = () => {
   const [open, setOpen] = React.useState(0);
   // const {isAuthenticated,isLoading} = useAuth();
   // if (isLoading) {
   //   return <div>Loading...</div>;
   // }
+  const handleLogout = () => {
+    logout();
+  }
   const handleOpen = (value) => {
     setOpen(open === value ? 0 : value);
   };
@@ -160,11 +164,11 @@ const Dashboard = () => {
           </ListItemPrefix>
           Settings
         </ListItem>
-        <ListItem>
+        <ListItem onClick={handleLogout}>
           <ListItemPrefix>
             <PowerIcon className="h-5 w-5" />
           </ListItemPrefix>
-          Log Out
+          Log Out 
         </ListItem>
       </List>
     </Card>
