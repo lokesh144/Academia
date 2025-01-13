@@ -38,7 +38,7 @@ body {
   }
 }
 .animate-loop-scroll {
-  animation: slide 12s linear infinite;
+  animation: slide 25s linear infinite;
 }
 .animate-shake {
   animation: shake 1s linear;

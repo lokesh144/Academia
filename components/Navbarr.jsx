@@ -83,27 +83,21 @@ const Navbarr = () => {
       </Link>
     </Typography>
     
-    <Menu allowHover='true'  animate={{
+    {/* <Menu allowHover='true'  animate={{
         mount: { y: 0 },
         unmount: { y: 25 },
-      }}>
-      <MenuHandler>
+      }}> */}
       <Typography
       as="li"
       variant=""
       color="blue-gray"
       className="p-1 font-tas text-[1.08rem] font-bold"
     >
-      <a href="/#" className="flex items-center">
+      <Link href="/notices" className="flex items-center">
         Notices
-      </a>
+      </Link>
     </Typography>
-      </MenuHandler>
-      <MenuList>
-      <a href="/notices" style={{border:"none"}}><MenuItem>General Notices</MenuItem></a>
-        <MenuItem>Important Notices</MenuItem>
-      </MenuList>
-    </Menu>
+      
     <Typography
       as="li"
       variant=""

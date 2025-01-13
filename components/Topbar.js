@@ -14,14 +14,14 @@ export default function Topbar() {
         <div className="block sm:flex items-center space-x-4">
           <div className="contact flex items-center space-x-2">
           <PhoneIcon className="text-gray-600"/>
-          <span className="text-md text-gray-600">071-538021</span>
+          <span className="text-md text-gray-600 font-semibold">071-538021</span>
           </div>
           <div className="email flex items-center space-x-2">
           <MailboxIcon className="text-gray-600"/>
-          <span className="text-md text-gray-600">peacelandaca@gmail.com</span>
+          <span className="text-md text-gray-600 font-semibold">peacelandaca@gmail.com</span>
           </div>
         </div>
-        <div className="flex items-center space-x-4">
+        {/* <div className="flex items-center space-x-4">
           <Link className="text-md text-gray-600 hover:text-gray-800" href="/login">
             Login
           </Link>
@@ -29,7 +29,7 @@ export default function Topbar() {
           <Link className="text-md text-gray-600 hover:text-gray-800" href="/register">
             Register
           </Link>
-        </div>
+        </div> */}
       </div>
       </div>
     </nav>
