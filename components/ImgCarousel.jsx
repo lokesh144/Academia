@@ -19,23 +19,28 @@ const ImgCarousel = () => {
     <div className="relative h-screen">
 <Carousel transition={{ type: "tween",duration: 1 }} autoplayDelay={3000} autoplay={true} infinite={true} loop={true}>
       <img
-        src="https://utfs.io/f/QoBGn9AkhKS3ptN8bR3GYtWhMgf2HkXDaw1nbxNZFq9u4jTo"
-        alt="image 1"
+        src="https://dkw5e4ooeb.ufs.sh/f/QoBGn9AkhKS3gljXBMkQkzAp8roHmD3Yd9XQlbiwqVh6FTKR"
+        alt="School Building"
         className="h-full w-full object-center"
       />
       <img
-        src="https://utfs.io/f/QoBGn9AkhKS3t6xxIrPo2DneFWpShsEQkA5O3BR869MlmgKa"
-        alt="image 2"
+        src="https://dkw5e4ooeb.ufs.sh/f/QoBGn9AkhKS3MXFgBvM09KecC8DjQtFNr7PwV5AxBHJbgRuE"
+        alt="Montessori"
         className="h-full w-full object-center"
       />
       <img
-        src="https://utfs.io/f/QoBGn9AkhKS3bzTAQCfFoy0NrzbY71Ak2qv3xC6h9KinVIuL"
-        alt="image 3"
+        src="https://dkw5e4ooeb.ufs.sh/f/QoBGn9AkhKS3iHIJtFO4mdib58lSzfTZa70KkBps2euLAngU"
+        alt="Computer Lab"
         className="h-full w-full object-center"
       />
       <img
-        src="https://utfs.io/f/QoBGn9AkhKS3CYskTPp5O7e1ugcEXvaV02lmGFB9xRWNhyj8"
-        alt="image 3"
+        src="https://dkw5e4ooeb.ufs.sh/f/QoBGn9AkhKS3kv9aCilMIUy6au25qgHiYPt8JhlRrG9FN3VL"
+        alt="Library"
+        className="h-full w-full object-cover object-center"
+      />
+      <img
+        src="https://dkw5e4ooeb.ufs.sh/f/QoBGn9AkhKS3Ctf1Dsp5O7e1ugcEXvaV02lmGFB9xRWNhyj8"
+        alt="Attending COFAS"
         className="h-full w-full object-cover object-center"
       />
     </Carousel>
