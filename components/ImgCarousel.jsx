@@ -16,7 +16,7 @@ const ImgCarousel = () => {
     //   return () => clearInterval(intervalId); // Cleanup interval on unmount
     // }, []);
   return (
-    <div className="relative h-screen">
+    <div className="relative h-fit md:h-screen">
 <Carousel transition={{ type: "tween",duration: 1 }} autoplayDelay={3000} autoplay={true} infinite={true} loop={true}>
       <img
         src="https://dkw5e4ooeb.ufs.sh/f/QoBGn9AkhKS3gljXBMkQkzAp8roHmD3Yd9XQlbiwqVh6FTKR"

@@ -83,6 +83,15 @@ body {
     transform: skewX(0deg); /* Adjust angle of the cut end */
     transform-origin: bottom left;
   }
+  .outer-circle {
+  width: 105px;
+  height: 105px;
+}
+  .inner-circle {
+    height: 105px;
+    width: 105px;
+    /* animation: rotateCircle 3s linear infinite reverse; */
+  }
 }
 .custom-navbar{
   background-color: white;
@@ -112,6 +121,27 @@ body {
     transform: translateY(0);
   }
 }
+  @keyframes rotateCircle {
+    0% {
+      transform: rotate(0);
+    }
+
+    25% {
+      transform: rotate(90deg);
+    }
+
+    50% {
+      transform: rotate(180deg);
+    }
+
+    75% {
+      transform: rotate(270deg);
+    }
+
+    100% {
+      transform: rotate(360deg);
+    }
+  }
 
 .expand {
   animation: slideDown 1s ease-out;
@@ -154,7 +184,7 @@ body {
   border-color: transparent;
   border-radius: 50%;
   border-width: 0;
-  /* animation: rotateCircle 3s linear infinite; */
+  animation: rotateCircle 3s linear infinite;
   padding: 2px;
   display: table;
   
@@ -167,7 +197,7 @@ body {
     border-color: transparent;
     border-radius: 50%;
     border-width: 3px;
-    /* animation: rotateCircle 3s linear infinite reverse; */
+    animation: rotateCircle 3s linear infinite reverse;
     display: table;
     text-align: center;
   }

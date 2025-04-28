@@ -18,7 +18,7 @@ import {
 import Image from 'next/image';
 const secCard = () => {
   return (
-    <section className="-mt-32 bg-white px-4 pt-4">
+    <section className="-mt-18 md:-mt-32 bg-white px-4 pt-4">
     <div className="container mx-auto">
       {/* <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {featuresData.map(({ color, title, icon, description }) => (
@@ -40,7 +40,7 @@ const secCard = () => {
           </div>
           <Typography
             variant="h2"
-            className="mb-3 font-bold"
+            className="mb-3 font-bold text-3xl md:text-4xl"
             color="blue-gray"
           >
             Your only destiny to Bright Academic Future
@@ -52,7 +52,7 @@ const secCard = () => {
         Read More
       </button> */}
         </div>
-        <div className="mx-auto mt-24 flex w-full justify-center px-4 md:w-4/12 lg:mt-0">
+        <div className="mx-auto flex w-full justify-center px-4 md:w-4/12 lg:mt-0">
           {/* <Card className="shadow-lg border shadow-gray-500/10 rounded-lg">
             <CardHeader floated={false} className="relative h-56">
               <img
@@ -77,7 +77,7 @@ const secCard = () => {
               </Typography>
             </CardBody>
           </Card> */}
-          <Image src="/girl.png" width={500} height={500} alt="Picture of the author" className="w-10px h-auto sm:max-w-[300px] md:max-w-[400px] lg:max-w-[500px]"/>
+          <Image src="/girl.png" width={500} height={500} alt="Picture of the author" className="w-[300px] h-auto md:max-w-[400px] lg:w-[700px]"/>
         </div>
       </div>
     </div>
