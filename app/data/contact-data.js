@@ -9,19 +9,19 @@ const contactData = [
     title: "Quality Education",
     icon: BriefcaseIcon,
     description:
-      "Some quick example text to build on the card title and make up the bulk of the card's content.",
+      "Empowering students with knowledge, skills, and values through innovative and inclusive learning.",
   },
   {
     title: "Bright Career",
     icon: ChartBarIcon,
     description:
-      "Some quick example text to build on the card title and make up the bulk of the card's content.",
+      "Guiding students toward a successful future with strong academics, skill development, and career readiness.",
   },
   {
     title: "Enhance Creativity",
     icon: PlayIcon,
     description:
-      "Some quick example text to build on the card title and make up the bulk of the card's content.",
+      "Inspiring imagination and innovation through engaging activities and a supportive learning environment.",
   },
 ];
 

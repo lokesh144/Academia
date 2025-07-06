@@ -52,7 +52,7 @@ const secCard = () => {
         Read More
       </button> */}
         </div>
-        <div className="mx-auto flex w-full justify-center px-4 md:w-4/12 lg:mt-0">
+        <div className="mx-auto flex w-0 justify-center px-4 md:w-4/12 lg:mt-0">
           {/* <Card className="shadow-lg border shadow-gray-500/10 rounded-lg">
             <CardHeader floated={false} className="relative h-56">
               <img

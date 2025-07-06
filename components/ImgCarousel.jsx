@@ -1,5 +1,5 @@
 "use client";
-import React,{useRef,useEffect} from 'react'
+import React from 'react'
 // import { Carousel, Typography, Button } from "@/node_modules/@material-tailwind/react";
 import { Carousel } from "@material-tailwind/react";
 const ImgCarousel = () => {
@@ -16,7 +16,7 @@ const ImgCarousel = () => {
     //   return () => clearInterval(intervalId); // Cleanup interval on unmount
     // }, []);
   return (
-    <div className="relative h-fit md:h-screen">
+    <div className="relative md:h-screen h-[70vh] overflow-x-hidden">
 <Carousel transition={{ type: "tween",duration: 1 }} autoplayDelay={3000} autoplay={true} infinite={true} loop={true}>
       <img
         src="https://dkw5e4ooeb.ufs.sh/f/QoBGn9AkhKS3gljXBMkQkzAp8roHmD3Yd9XQlbiwqVh6FTKR"

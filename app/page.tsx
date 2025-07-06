@@ -19,7 +19,7 @@ export default function Home() {
     <Chairperson/>
     <Feature/>
     <Teamn/>
-    <EventCard/>
+    {/* <EventCard/> */}
     <Footer/>
     </>
   );

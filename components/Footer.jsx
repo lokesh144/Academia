@@ -88,26 +88,26 @@ Footer.defaultProps = {
   description:
     "Connect with us in these socials",
   socials: [
-    {
-      color: "gray",
-      name: "twitter",
-      path: "https://www.twitter.com/creativetim",
-    },
+    // {
+    //   color: "gray",
+    //   name: "twitter",
+    //   path: "https://www.twitter.com/creativetim",
+    // },
     {
       color: "red",
       name: "youtube",
-      path: "https://www.youtube.com/channel/UCVyTG4sCw-rOvB9oHkzZD1w",
+      path: "https://www.youtube.com/@ourpeacelandacademybutwal-8402",
     },
     {
       color: "blue",
       name: "facebook",
-      path: "https://www.instagram.com/creativetimofficial/",
+      path: "https://www.facebook.com/OurPeaceland",
     },
-    {
-      color: "blue",
-      name: "envelope-open",
-      path: "https://www.instagram.com/creativetimofficial/",
-    },
+    // {
+    //   color: "blue",
+    //   name: "email",
+    //   path: "https://www.instagram.com/creativetimofficial/",
+    // },
   ],
   menus: [
     {
@@ -115,10 +115,10 @@ Footer.defaultProps = {
       items: [
         { name: "About Us", path: "https://www.creative-tim.com/presentation" },
         { name: "Blog", path: "https://www.creative-tim.com/blog" },
-        {
-          name: "Github",
-          path: "https://www.github.com/creativetimofficial/material-tailwind?ref=mtk",
-        },
+        // {
+        //   name: "Github",
+        //   path: "https://www.github.com/creativetimofficial/material-tailwind?ref=mtk",
+        // },
         {
           name: "Free Products",
           path: "https://www.creative-tim.com/templates/free?ref=mtk",
@@ -128,18 +128,18 @@ Footer.defaultProps = {
     {
       name: "other resources",
       items: [
-        {
-          name: "MIT License",
-          path: "https://github.com/creativetimofficial/material-tailwind/blob/main/LICENSE.md?ref=mtk",
-        },
-        {
-          name: "Contribute",
-          path: "https://github.com/creativetimofficial/material-tailwind/blob/main/CONTRIBUTING.md?ref=mtk",
-        },
-        {
-          name: "Change Log",
-          path: "https://github.com/creativetimofficial/material-tailwind/blob/main/CHANGELOG.md?ref=mtk",
-        },
+        // {
+        //   name: "MIT License",
+        //   path: "https://github.com/creativetimofficial/material-tailwind/blob/main/LICENSE.md?ref=mtk",
+        // },
+        // {
+        //   name: "Contribute",
+        //   path: "https://github.com/creativetimofficial/material-tailwind/blob/main/CONTRIBUTING.md?ref=mtk",
+        // },
+        // {
+        //   name: "Change Log",
+        //   path: "https://github.com/creativetimofficial/material-tailwind/blob/main/CHANGELOG.md?ref=mtk",
+        // },
         {
           name: "Contact Us",
           path: "https://creative-tim.com/contact-us?ref=mtk",

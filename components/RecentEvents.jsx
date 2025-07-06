@@ -3,7 +3,6 @@ import React from 'react';
 import {
     Card,
     CardBody,
-    Avatar,
     IconButton,
     Typography,
     CardHeader,
@@ -52,7 +51,7 @@ const BlogCard = ({ image, date, title, description, tags }) => {
                     {description}
                   </Typography>
                 </CardBody>
-                <Button className="w-28 p-3 mb-4 ml-4 text-xs lg:text-sm" size="md" variant="outlined" onClick={handleOpen}>read more</Button>
+                <Button className="w-28 p-3 mb-4 ml-4 text-xs lg:text-sm" size="md" variant="outlined">read more</Button>
               </Card>
 
               <Dialog size="md" open={open} handler={handleOpen}>

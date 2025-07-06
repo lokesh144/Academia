@@ -137,14 +137,14 @@ const Navbarr = () => {
             >
               <span>Log In</span>
             </Button> */}
-            <Button
+            {/* <Button
               variant="linear"
               size="sm"
               className="hidden lg:inline-block font-tas text-[0.95rem] rounded-2xl bg-[#3b705b]"
             ><Link href="/teacherlogin">
               <span>Be Teacher</span>
               </Link>
-            </Button>
+            </Button> */}
           </div>
           <IconButton
             variant="text"
