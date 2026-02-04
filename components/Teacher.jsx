@@ -1,316 +1,231 @@
-"use client";
-
-import React, { useState } from "react";
+'use client'
+import React,{useState} from 'react'
 import {
-  ChevronRight,
-  Upload,
-  GraduationCap,
-  CheckCircle2,
-} from "lucide-react";
-import Navbarr from "./Navbarr";
+  Card,
+  Input,
+  Checkbox,
+  Button,
+  Typography,
+} from "@material-tailwind/react";
 
-const TeacherSetup = () => {
-  const [selectedFiles, setSelectedFiles] = useState([]);
-  const [uploadProgress, setUploadProgress] = useState({});
-  const [uploadedFiles, setUploadedFiles] = useState([]);
-
-  const handleFileSelect = (event) => {
-    const files = Array.from(event.target.files);
-    setSelectedFiles(files);
-  };
-
-  console.log(selectedFiles);
-
-  const handleUpload = async () => {
-    for (const file of selectedFiles) {
-      await uploadFile(file);
-    }
-    setSelectedFiles([]);
-  };
-
-  const uploadFile = async (file) => {
-    const formData = new FormData();
-    formData.append("file", file);
-
+const Teacher = () => {
+  // const handleSubmit=()=>{
+  //   alert("Form submitted successfully");
+  // }
+  const [fname, setFname] = useState('');
+  const [lname, setLname] = useState('');
+  const [email, setEmail] = useState('');
+  const [contact, setContact] = useState('');
+  const handleSubmit = async (event) => {
+    // alert("Notice added successfully");
+    event.preventDefault();
+    // const data = { fname,lname,email,contact };
     try {
-      const response = await fetch("/api/teacher", {
-        method: "POST",
-        body: formData,
-      });
-
-      if (response.ok) {
-        setUploadedFiles((prev) => [...prev, file.name]);
-      }
+        const res = await fetch('http://localhost:5000/api/teachers', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({fname: fname,lname: lname,email:email,contact:contact})
+        });
+        const data = await res.json();
+      // setNoticeData(result)
+      // console.log("Before set",event);
+      // const fevent = event.firstEvents;
+      console.log("After Submit events",data);
+        // setResponse(result);
+        // console.log(result[0].filteredNotices[6].selectedClasses);
+        if (res.ok) {
+          alert('Data submitted successfully!');
+        } else {
+          alert('Failed to submit data');
+        }
     } catch (error) {
-      console.error("Upload failed:", error);
+        console.error('Error submitting data:', error);
     }
-  };
-  const [form, setForm] = useState({
-    fname: "",
-    lname: "",
-    email: "",
-    contact: "",
-    gender: "",
-    education: "",
-    document_front_url: "",
-    document_back_url: "",
-    academic_degree_url: "",
-  });
-
-  const handleChange = (e) => {
-    const { name, value, type, files } = e.target;
-
-    if (type === "file") {
-      setForm({ ...form, [name]: files[0]?.name || "" });
-    } else {
-      setForm({ ...form, [name]: value });
-    }
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-
-    // text fields
-    formData.append("fname", form.fname);
-    formData.append("lname", form.lname);
-    formData.append("email", form.email);
-    formData.append("contact", form.contact);
-    formData.append("gender", form.gender);
-    formData.append("education", form.education);
-
-    // files
-    formData.append("document_front", form.document_front);
-    formData.append("document_back", form.document_back);
-    formData.append("academic_degree", form.academic_degree);
-
-    const res = await fetch("/api/teacher", {
-      method: "POST",
-      body: formData,
-    });
-
-    const result = await res.json();
-
-    if (res.ok) {
-      alert("Application Submitted Successfully!");
-      setForm({
-        fname: "",
-        lname: "",
-        email: "",
-        contact: "",
-        gender: "",
-        education: "",
-        document_front_url: "",
-        document_back_url: "",
-        academic_degree_url: "",
-      });
-    } else {
-      alert(result.error);
-    }
-  };
-
-  return (
-    <div className="min-h-screen bg-gray-100 flex flex-col">
-      <Navbarr />
-
-      <div className="flex justify-center items-center flex-1 py-4">
-        <div className="bg-white w-[95%] max-w-6xl rounded-[30px] shadow-2xl flex flex-col md:flex-row overflow-hidden">
-          {/* LEFT */}
-          <div className="w-full md:w-[35%] bg-[#2f6f5a] text-white flex flex-col items-center justify-center p-8">
-            <div className="w-32 h-32 bg-white rounded-full flex items-center justify-center border-4 border-[#1e4d3f] mb-6">
-              <img src="/application.png" alt="Profile" />
-            </div>
-
-            <h2 className="text-2xl font-extrabold mb-2">
-              Lets get you set up
-            </h2>
-            <p className="text-green-100 text-sm text-center">
-              It should only take a couple of minutes
-            </p>
-
-            <button className="w-12 h-12 bg-white text-[#2f6f5a] rounded-full mt-6 flex items-center justify-center">
-              <ChevronRight />
-            </button>
-          </div>
-
-          {/* RIGHT */}
-          <div className="w-full md:w-[65%] flex flex-col">
-            <form
-              id="teacher-form"
-              onSubmit={handleSubmit}
-              className="p-6 md:p-10 space-y-5 flex-1 overflow-y-auto"
-            >
-              <h3 className="text-xl font-bold text-black border-b pb-2">
-                Personal Information
-              </h3>
-
-              <div className="grid md:grid-cols-2 gap-4">
-                <Input
-                  label="First Name"
-                  name="fname"
-                  placeholder="John"
-                  value={form.fname}
-                  onChange={handleChange}
-                />
-                <Input
-                  label="Last Name"
-                  name="lname"
-                  placeholder="Doe"
-                  value={form.lname}
-                  onChange={handleChange}
-                />
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-4">
-                <Input
-                  label="Email"
-                  name="email"
-                  placeholder="john@example.com"
-                  value={form.email}
-                  onChange={handleChange}
-                />
-                <Input
-                  label="Contact"
-                  name="contact"
-                  placeholder="+977 98xxxxxxx"
-                  value={form.contact}
-                  onChange={handleChange}
-                />
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-4">
-                <div>
-                  <Label text="Gender" />
-                  <div className="flex gap-6 mt-2">
-                    <Radio
-                      name="gender"
-                      value="Male"
-                      checked={form.gender === "Male"}
-                      onChange={handleChange}
-                    />
-                    <Radio
-                      name="gender"
-                      value="Female"
-                      checked={form.gender === "Female"}
-                      onChange={handleChange}
-                    />
-                  </div>
-                </div>
-
-                <Select
-                  label="Education"
-                  name="education"
-                  value={form.education}
-                  onChange={handleChange}
-                  options={["High School", "Bachelor", "Master", "PhD"]}
-                />
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-4">
-              <div>
-<span>here</span>
-
-
-
-
-                <input
-                  type="file"
-                  multiple
-                  onChange={handleFileSelect}
-                  
-                  id="document_front_url"
-                />
-                
-                </div>
-                <File
-                  label="Document (Front)"
-                  name="document_front_urls"
-                  onChange={handleChange}
-                />
-                <File
-                  label="Document (Back)"
-                  name="document_back_url"
-                  onChange={handleChange}
-                />
-              </div>
-
-              <File
-                label="Academic Degree"
-                name="academic_degree_url"
-                onChange={handleChange}
-              />
-            </form>
-
-            <div className="sticky bottom-0 bg-gray-50 border-t px-10 py-4 flex justify-end">
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleUpload();
-                  console.log("clicked.");
-                }}
-                form="teacher-form"
-                className="bg-white border-2 border-black text-black px-10 py-3 rounded-xl font-black"
-              >
-                SUBMIT APPLICATION <CheckCircle2 className="inline ml-2" />
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+    // alert("Form submit successful !")
 };
-
-/* ---------- COMPONENTS ---------- */
-
-const Input = ({ label, ...props }) => (
-  <div>
-    <label className="block mb-1 font-bold text-sm text-black">{label}</label>
-    <input
-      {...props}
-      required
-      className="w-full border-2 border-gray-300 px-3 py-2 rounded-lg text-black placeholder-gray-400 focus:outline-none focus:border-emerald-600"
-    />
-  </div>
-);
-
-const Select = ({ label, options, ...props }) => (
-  <div>
-    <label className="block mb-1 font-bold text-sm text-black">{label}</label>
+  return (
+         <Card shadow={false} className="ml-16 mt-10  ">
+           {/* Background image */}
+  <div
+    className="absolute inset-0 bg-[url('/application.png')] bg-cover bg-center opacity-50 pointer-events-none"
+  ></div>
+          <Typography variant="h1" color="blue-gray">
+            Apply for Teacher
+          </Typography>
+          <Typography color="transparent" className="mt-1 font-normal text-lg">
+            Enter your details to apply.
+          </Typography>
+          <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96" onSubmit={handleSubmit}>
+            <div className="mb-6 flex flex-col gap-6">
+              <div className="flex gap-x-8">
+                <div id="first">
+              <Typography variant="h6" color="blue-gray" className="-mb-3" required>
+                First Name 
+              </Typography><br/>
+              <Input
+              name='fname'
+                size="lg"
+                placeholder="First Name"
+                className=" !border-t-blue-gray-200 focus:!border-t-gray-900 w-44"
+                labelProps={{
+                  className: "before:content-none after:content-none",
+                }} 
+                required
+                onChange={(e) => setFname(e.target.value)}
+              />
+              </div>
+              <div id="second">
+              <Typography variant="h6" color="blue-gray" className="-mb-3">
+                Last Name *
+              </Typography><br/>
+              <Input
+              name='lname'
+                size="lg"
+                placeholder="Last Name"
+                className=" !border-t-blue-gray-200 focus:!border-t-gray-900 w-44"
+                labelProps={{
+                  className: "before:content-none after:content-none",
+                }} 
+                required
+                onChange={(e) => setLname(e.target.value)}
+                style={{'list-style':'none'}}
+              />
+              </div>
+              <div id="email">
+              <Typography variant="h6" color="blue-gray" className="-mb-3">
+                Email
+              </Typography><br/>
+              <Input
+              name='email'
+                size="lg"
+                placeholder="name@mail.com"
+                className=" !border-t-blue-gray-200 focus:!border-t-gray-900 w-56"
+                labelProps={{
+                  className: "before:content-none after:content-none",
+                }} 
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              </div>
+              </div>
+              <div className="flex gap-x-10">
+                <div id="contact">
+                <Typography variant="h6" color="blue-gray" className="-mb-3">
+                Contact
+              </Typography><br/>
+              <Input
+                name="contact"
+                size="lg"
+                placeholder="98*******"
+                className=" !border-t-blue-gray-200 focus:!border-t-gray-900 w-44"
+                labelProps={{
+                  className: "before:content-none after:content-none",
+                }} 
+                onChange={(e) => setContact(e.target.value)}
+              />
+                </div>
+                <div>
+              <Typography variant="h6" color="blue-gray" className="-mb-3">
+                Education/Degree
+              </Typography><br/>
+              <div className=" min-w-[100px]">      
+  <div className="relative w-[200px]">
     <select
-      {...props}
-      required
-      className="w-full border-2 border-gray-300 px-3 py-2 rounded-lg text-black bg-white"
-    >
-      <option value="">Select</option>
-      {options.map((o) => (
-        <option key={o}>{o}</option>
-      ))}
+        className="w-[200px] bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded pl-3 pr-8 py-3 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md appearance-none cursor-pointer">
+          <option hidden disabled selected value> --Select-- </option>
+        <option value="school">School Level</option>
+        <option value="+2 level">+2 Level</option>
+        <option value="bachelor">Bachelor Level</option>
     </select>
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.2" stroke="currentColor" className="h-5 w-5 ml-1 absolute top-3.5 right-2 text-slate-700">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15 12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
+    </svg>
   </div>
-);
+</div>
+</div>
 
-const File = ({ label, name, onChange }) => (
-  <div>
-    <label className="block mb-1 font-bold text-sm text-black">{label}</label>
-    <label className="flex justify-between items-center border-2 border-dashed border-gray-300 px-3 py-2 rounded-lg cursor-pointer bg-gray-50">
-      <span className="text-gray-500 text-sm">Attach file</span>
-      <Upload size={16} className="text-gray-500" />
-      <input type="file" name={name} onChange={onChange} hidden />
-    </label>
+<div>
+<Typography variant="h6" color="blue-gray" className="-mb-3">
+                Gender
+              </Typography><br/>
+              <div className=" min-w-[100px]">      
+  <div className="relative w-[200px]">
+    <select
+        className="w-[200px] bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded pl-3 pr-8 py-3 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md appearance-none cursor-pointer">
+          <option hidden disabled selected value> --Select-- </option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+    </select>
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.2" stroke="currentColor" className="h-5 w-5 ml-1 absolute top-3.5 right-2 text-slate-700">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15 12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
+    </svg>
   </div>
-);
+  </div>
+</div>
+</div>
+<div className="flex gap-x-10">
+                {/* <Typography variant="h6" color="blue-gray" className="-mb-3">
+                Password
+              </Typography>
+              <Input
+                type="password"
+                size="lg"
+                placeholder="********"
+                className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                labelProps={{
+                  className: "before:content-none after:content-none",
+                }}
+              /> */}
+              <div class="max-w-md">
+      <label class="text-base font-semibold mb-2 block">Document (Front)</label>
+      <input type="file"
+        class="w-64 font-semibold text-sm bg-white border file:cursor-pointer cursor-pointer file:border-0 file:py-3 file:px-4 file:mr-4  rounded" />
+      <p class="text-xs mt-2">PNG, JPG are Allowed.</p>
+    </div>
+              <div class="max-w-md">
+      <label class="text-base font-semibold mb-2 block">Document (Back)</label>
+      <input type="file"
+        class="w-64 font-semibold text-sm bg-white border file:cursor-pointer cursor-pointer file:border-0 file:py-3 file:px-4 file:mr-4  rounded" />
+      <p class="text-xs mt-2">PNG, JPG are Allowed.</p>
+    </div>
 
-const Radio = (props) => (
-  <label className="flex gap-2 items-center text-black font-medium">
-    <input type="radio" {...props} className="accent-emerald-600" />
-    {props.value}
-  </label>
-);
+    <div class="max-w-md">
+      <label class="text-base font-semibold mb-2 block">Academic Degree</label>
+      <input type="file"
+        class="w-64 font-semibold text-sm bg-white border file:cursor-pointer cursor-pointer file:border-0 file:py-3 file:px-4 file:mr-4  rounded" />
+      <p class="text-xs mt-2">PNG, JPG are Allowed.</p>
+    </div>
+    </div>
+            </div>
+            <Checkbox
+              label={
+                <Typography
+                  variant="small"
+                  color="gray"
+                  className="flex items-center font-normal"
+                >
+                  I agree the
+                    &nbsp;Terms and Conditions
+                </Typography>
+              }
+              containerProps={{ className: "-ml-2.5" }}
+            /><br/>
+            <div class="flex justify-end">
+            <Button className="mt-6 text-base" type="submit">
+              submit
+            </Button>
+            </div>
+            {/* <Typography color="gray" className="mt-4 text-center font-normal">
+              Already have an account?{" "}
+              <a href="#" className="font-medium text-gray-900">
+                Sign In
+              </a>
+            </Typography> */}
+          </form>
+        </Card>
+      );
+}
 
-const Label = ({ text }) => (
-  <label className="block font-bold text-sm text-black">{text}</label>
-);
-
-export default TeacherSetup;
+export default Teacher
