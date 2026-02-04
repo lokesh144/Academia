@@ -113,13 +113,24 @@ const TeacherSetup = () => {
     <div className="min-h-screen bg-gray-100 flex flex-col">
       <Navbarr />
 
-      <div className="flex justify-center items-center flex-1 py-4">
-        <div className="bg-white w-[95%] max-w-6xl rounded-[30px] shadow-2xl flex flex-col md:flex-row overflow-hidden">
+      {/* <div className="flex justify-center items-center flex-1 py-4">
+        <div className="bg-white w-[95%] max-w-6xl rounded-[30px] shadow-2xl flex flex-col md:flex-row overflow-hidden"> */}
+        <div className="flex flex-1 min-h-screen">
+        <div className="bg-white w-full flex flex-col md:flex-row overflow-hidden">
+
           {/* LEFT */}
           <div className="w-full md:w-[35%] bg-[#2f6f5a] text-white flex flex-col items-center justify-center p-8">
-            <div className="w-32 h-32 bg-white rounded-full flex items-center justify-center border-4 border-[#1e4d3f] mb-6">
+            {/* <div className="w-32 h-32 bg-white rounded-full flex items-center justify-center border-4 border-[#1e4d3f] mb-6">
               <img src="/application.png" alt="Profile" />
+            </div> */}
+            <div className="w-32 h-32 bg-white rounded-full overflow-hidden flex items-center justify-center border-4 border-[#1e4d3f] mb-6">
+            <img
+               src="/application.png"
+               alt="Profile"
+               className="w-full h-full object-cover rounded-full"
+             />
             </div>
+
 
             <h2 className="text-2xl font-extrabold mb-2">
               Lets get you set up
@@ -138,7 +149,7 @@ const TeacherSetup = () => {
             <form
               id="teacher-form"
               onSubmit={handleSubmit}
-              className="p-6 md:p-10 space-y-5 flex-1 overflow-y-auto"
+              className="p-6 md:p-10 space-y-2 flex-1 overflow-y-auto"
             >
               <h3 className="text-xl font-bold text-black border-b pb-2">
                 Personal Information
@@ -255,6 +266,21 @@ const TeacherSetup = () => {
                 SUBMIT APPLICATION <CheckCircle2 className="inline ml-2" />
               </button>
             </div>
+            {/* <div className="sticky bottom-6 bg-gray-50 border-t px-10 py-4 flex justify-end">
+  <button
+    type="button"
+    onClick={(e) => {
+      e.preventDefault();
+      handleUpload();
+      console.log("clicked.");
+    }}
+    form="teacher-form"
+    className="bg-white border-2 border-black text-black px-10 py-3 rounded-xl font-black"
+  >
+    SUBMIT APPLICATION <CheckCircle2 className="inline ml-2" />
+  </button>
+</div> */}
+
           </div>
         </div>
       </div>
