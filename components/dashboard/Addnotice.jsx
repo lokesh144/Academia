@@ -14,13 +14,8 @@ import {
 } from "@material-tailwind/react";
 import {
   PresentationChartBarIcon,
-  ShoppingBagIcon,
-  UserCircleIcon,
-  Cog6ToothIcon,
   InboxIcon,
-  PowerIcon,
 } from "@heroicons/react/24/solid";
-import { ChevronRightIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
 import { supabase } from "@/lib/supabaseClient";
 
 const classes = [
@@ -45,6 +40,7 @@ const AddNotice = () => {
   const [title, setTitle] = React.useState('');
   const [description, setDescp] = React.useState('');
   const [selectedClasses, setSelectedClasses] = React.useState([]);
+  const [category, setCategory] = React.useState('general'); // ✅ NEW
 
   const handleCheckboxChange = (classTitle) => {
     setSelectedClasses(prev =>
@@ -64,6 +60,7 @@ const AddNotice = () => {
           title: title,
           descrp: description,
           classes: selectedClasses,
+          category: category, // ✅ NEW
         },
       ]);
 
@@ -74,6 +71,7 @@ const AddNotice = () => {
       setTitle("");
       setDescp("");
       setSelectedClasses([]);
+      setCategory("general");
     }
   };
 
@@ -83,7 +81,7 @@ const AddNotice = () => {
 
   return (
     <div className="flex">
-      {/* SIDEBAR (unchanged) */}
+      {/* SIDEBAR */}
       <Card className="h-screen w-full max-w-[20rem] p-4 shadow-xl">
         <Typography variant="h5" className="p-4">Sidebar</Typography>
         <List>
@@ -117,6 +115,7 @@ const AddNotice = () => {
         <Typography variant="h3">Add Notice</Typography>
 
         <form className="max-w-sm mt-6" onSubmit={handleSubmit}>
+          {/* TITLE */}
           <div className="mb-5">
             <label className="block mb-2 text-sm font-medium">Title</label>
             <input
@@ -127,6 +126,7 @@ const AddNotice = () => {
             />
           </div>
 
+          {/* DESCRIPTION */}
           <div className="mb-5">
             <label className="block mb-2 text-sm font-medium">Description</label>
             <input
@@ -137,6 +137,7 @@ const AddNotice = () => {
             />
           </div>
 
+          {/* CLASSES */}
           <h3 className="mb-3 font-semibold">Classes</h3>
           <div className="flex flex-wrap gap-4 mb-6">
             {classes.map(c => (
@@ -150,6 +151,33 @@ const AddNotice = () => {
             ))}
           </div>
 
+          {/* ✅ CATEGORY SECTION */}
+          <h3 className="mb-3 font-semibold">Category</h3>
+          <div className="flex gap-6 mb-6">
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="radio"
+                name="category"
+                value="general"
+                checked={category === "general"}
+                onChange={(e) => setCategory(e.target.value)}
+              />
+              <span>General</span>
+            </label>
+
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="radio"
+                name="category"
+                value="academic"
+                checked={category === "academic"}
+                onChange={(e) => setCategory(e.target.value)}
+              />
+              <span>Academic</span>
+            </label>
+          </div>
+
+          {/* SUBMIT */}
           <button className="bg-blue-700 text-white px-6 py-2 rounded">
             Submit
           </button>

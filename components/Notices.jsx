@@ -6,11 +6,12 @@ import { supabase } from "@/lib/supabaseClient";
 const Notices = () => {
   const [noticeData, setNoticeData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [activeCategory, setActiveCategory] = useState("all");
 
   const fetchNotices = async () => {
     const { data, error } = await supabase
       .from("notices")
-      .select("id, title, descrp, classes")
+      .select("id, title, descrp, classes, category")
       .order("id", { ascending: false });
 
     if (error) {
@@ -25,24 +26,65 @@ const Notices = () => {
   useEffect(() => {
     fetchNotices();
   }, []);
+
   const normalizeClasses = (classes) => {
     if (!classes) return [];
-
-    // already an array
     if (Array.isArray(classes)) return classes;
 
-    // JSON string
     if (typeof classes === "string") {
       try {
         const parsed = JSON.parse(classes);
         if (Array.isArray(parsed)) return parsed;
       } catch {
-        // comma separated string
         return classes.split(",").map((c) => c.trim());
       }
     }
-
     return [];
+  };
+
+  const filteredNotices =
+    activeCategory === "all"
+      ? noticeData
+      : noticeData.filter((n) => n.category === activeCategory);
+
+  const NoticeCard = ({ id, title, descrp, classes, category }) => {
+    const isAcademic = category === "academic";
+
+    return (
+      <div
+        key={id}
+        className="relative flex flex-col m-1 shadow-lg w-80 rounded-xl bg-white"
+      >
+        {/* 🔴 THIS IS THE FIX */}
+        <div
+          className="shining-border rounded-xl"
+          style={isAcademic ? { backgroundColor: "#3D72CC" } : {}}
+        >
+          <div className="pt-5 pr-5 pb-2 pl-5">
+            <Image src="/notice.png" width={30} height={30} alt="Notice" />
+
+            <h5 className="mb-2 text-xl font-semibold text-black">
+              {title}
+            </h5>
+
+            <p className="text-base font-light text-black">
+              {descrp}
+            </p>
+          </div>
+
+          <div className="flex flex-wrap px-4 mb-3">
+            {normalizeClasses(classes).map((tag, index) => (
+              <span
+                key={index}
+                className="bg-[#3d6f5c] text-white text-sm font-medium mr-2 mb-2 px-2.5 py-0.5 rounded"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
   };
 
   if (loading) {
@@ -54,52 +96,42 @@ const Notices = () => {
   }
 
   return (
-    <div className="flex flex-wrap bg-white justify-center">
-      {noticeData.length === 0 ? (
-        <p className="text-black font-semibold">No notices found</p>
-      ) : (
-        noticeData.map(({ id, title, descrp, classes }) => (
-          <div
-            key={id}
-            className="relative flex flex-col m-8 text-gray-700 bg-white shadow-lg bg-clip-border w-80 rounded-xl"
+    <div className="bg-white px-3 py-4">
+      <h1 className="text-3xl font-bold text-black mb-4">
+        Notices
+      </h1>
+
+      <div className="flex gap-4 mb-4 border-b pb-1">
+        {["all", "general", "academic"].map((type) => (
+          <button
+            key={type}
+            onClick={() => setActiveCategory(type)}
+            className={`text-lg font-semibold pb-1 border-b-2 transition-all ${
+              activeCategory === type
+                ? "border-black text-black"
+                : "border-transparent text-gray-500 hover:text-black"
+            }`}
           >
-            <div className="shining-border rounded-xl">
-              <div className="pt-6 pr-6 pb-2 pl-6">
-                <Image src="/notice.png" width={50} height={50} alt="Notice" />
+            {type === "all"
+              ? "All Notices"
+              : type === "general"
+              ? "General Notices"
+              : "Academic Notices"}
+          </button>
+        ))}
+      </div>
 
-                <h5 className="mb-2 text-xl font-semibold text-black">
-                  {title}
-                </h5>
-
-                <p className="text-base font-light text-black">{descrp}</p>
-              </div>
-
-              {/* TAGS */}
-              {/* <div className="flex flex-wrap px-4 mb-4">
-                {Array.isArray(classes) &&
-                  classes.map((tag,index) => (
-                    <span
-                      key={index}
-                      className="bg-[#3d6f5c] text-white text-sm font-medium mr-2 mb-2 px-2.5 py-0.5 rounded"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-              </div> */}
-              <div className="flex flex-wrap px-4 mb-4">
-                {normalizeClasses(classes).map((tag, index) => (
-                  <span
-                    key={index}
-                    className="bg-[#3d6f5c] text-white text-sm font-medium mr-2 mb-2 px-2.5 py-0.5 rounded"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-        ))
-      )}
+      <div className="flex flex-wrap justify-start">
+        {filteredNotices.length === 0 ? (
+          <p className="text-black font-medium">
+            No notices available
+          </p>
+        ) : (
+          filteredNotices.map((notice) => (
+            <NoticeCard key={notice.id} {...notice} />
+          ))
+        )}
+      </div>
     </div>
   );
 };
