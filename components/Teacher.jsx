@@ -116,31 +116,28 @@ const TeacherSetup = () => {
        */}
 
       <div className="flex h-screen overflow-hidden">
-       {/* LEFT */}
-          <div className="w-full md:w-[35%] bg-[#2f6f5a] text-white flex flex-col items-center justify-center p-8">
-            {/* <div className="w-32 h-32 bg-white rounded-full flex items-center justify-center border-4 border-[#1e4d3f] mb-6">
+        {/* LEFT */}
+        <div className="w-full md:w-[35%] bg-[#2f6f5a] text-white flex flex-col items-center justify-center p-8">
+          {/* <div className="w-32 h-32 bg-white rounded-full flex items-center justify-center border-4 border-[#1e4d3f] mb-6">
               <img src="/application.png" alt="Profile" />
             </div> */}
-            <div className="w-32 h-32 bg-white rounded-full overflow-hidden flex items-center justify-center border-4 border-[#1e4d3f] mb-6">
+          <div className="w-32 h-32 bg-white rounded-full overflow-hidden flex items-center justify-center border-4 border-[#1e4d3f] mb-6">
             <img
-               src="/application.png"
-               alt="Profile"
-               className="w-full h-full object-cover rounded-full"
-             />
-            </div>
-
-
-            <h2 className="text-2xl font-extrabold mb-2">
-              Lets get you set up
-            </h2>
-            <p className="text-green-100 text-sm text-center">
-              It should only take a couple of minutes
-            </p>
-
-            <button className="w-12 h-12 bg-white text-[#2f6f5a] rounded-full mt-6 flex items-center justify-center">
-              <ChevronRight />
-            </button>
+              src="/application.png"
+              alt="Profile"
+              className="w-full h-full object-cover rounded-full"
+            />
           </div>
+
+          <h2 className="text-2xl font-extrabold mb-2">Lets get you set up</h2>
+          <p className="text-green-100 text-sm text-center">
+            It should only take a couple of minutes
+          </p>
+
+          <button className="w-12 h-12 bg-white text-[#2f6f5a] rounded-full mt-6 flex items-center justify-center">
+            <ChevronRight />
+          </button>
+        </div>
 
         {/* RIGHT */}
         <div className="w-3/5 overflow-y-auto p-12">
@@ -253,7 +250,7 @@ const TeacherSetup = () => {
               <div className="flex justify-center pt-6">
                 <button
                   onClick={(e) => {
-                    e.preventDefault();
+                    // e.preventDefault();
                     handleUpload();
                     console.log("clicked.");
                   }}
