@@ -19,6 +19,7 @@ const Notices = () => {
     } else {
       setNoticeData(data || []);
     }
+    setLoading(false);
 };
   useEffect(() => {
     fetchNotices();

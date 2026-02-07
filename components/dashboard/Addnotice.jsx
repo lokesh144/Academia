@@ -1,17 +1,12 @@
 'use client'
 import React from 'react'
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-// import {getSession} from '@/lib';
-// import '@/styles/dashboard.css'; 
-
 import {
   Card,
   Typography,
   List,
   ListItem,
   ListItemPrefix,
-  ListItemSuffix,
   Checkbox,
   Accordion,
   AccordionHeader,
@@ -35,15 +30,15 @@ const classes = [
   { id: 9, title: 'Six' },
   { id: 10, title: 'Seven' },
   { id: 11, title: 'Eight' },
-  { id: 11, title: 'Nine' },
-  { id: 12, title: 'Ten' },
-  { id: 13, title: 'For All' }
+  { id: 12, title: 'Nine' },
+  { id: 13, title: 'Ten' },
+  { id: 14, title: 'For All' }
 ];
+
 const AddNotice = () => {
   const [open, setOpen] = React.useState(0);
   const [title, setTitle] = React.useState('');
   const [description, setDescp] = React.useState('');
-  const [response, setResponse] = React.useState(null);
   const [selectedClasses, setSelectedClasses] = React.useState([]);
   const [category, setCategory] = React.useState('general'); // ✅ NEW
 
@@ -79,47 +74,11 @@ const AddNotice = () => {
       setCategory("general");
     }
   };
-  // const {isAuthenticated,isLoading} = useAuth();
-  // if (isLoading) {
-  //   return <div>Loading...</div>;
-  // }
+
   const handleOpen = (value) => {
     setOpen(open === value ? 0 : value);
   };
-  const opend=()=>{
-    alert('Dashboard dialogue');
-  };
-  // if (!isAuthenticated) {
-  //   return <div>Redirecting...</div>;
-  // }
 
-  // if (status=='loading') return <div>Loading...</div>;
-
-  // if (!session || !session.user) {
-  //   router.push('/lokesh');
-  //   return null;
-  // }
-  // const session=await getSession();
-  // console.log(session)
-  const handleSubmit = async (event) => {
-    console.log("okay")
-    alert("Notice added successfully");
-    console.log("Selected Classes: ", selectedClasses);
-    event.preventDefault();
-    try {
-        const res = await fetch('http://localhost:5000/api/notice', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({title: title,description: description,selectedClasses:selectedClasses})
-        });
-        const result = await res.json();
-        setResponse(result);
-    } catch (error) {
-        console.error('Error submitting data:', error);
-    }
-};
   return (
     <div className="flex">
       {/* SIDEBAR */}
@@ -130,38 +89,20 @@ const AddNotice = () => {
             <ListItem selected={open === 1}>
               <AccordionHeader onClick={() => handleOpen(1)}>
                 <ListItemPrefix>
-                  <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                  <PresentationChartBarIcon className="h-5 w-5" />
                 </ListItemPrefix>
-                Analytics
-              </ListItem>
-              <ListItem>
-                <ListItemPrefix>
-                  <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                </ListItemPrefix>
-                Reporting
-              </ListItem>
-              <ListItem>
-                <ListItemPrefix>
-                  <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                </ListItemPrefix>
-                Projects
-              </ListItem>
-            </List>
-          </AccordionBody>
-        </Accordion>
-        <Accordion
-          open={open === 2}
-          icon={
-            <ChevronDownIcon
-              strokeWidth={2.5}
-              className={`mx-auto h-4 w-4 transition-transform ${open === 2 ? "rotate-180" : ""}`}
-            />
-          }
-        >
-          <ListItem className="p-0" selected={open === 2}>
-            <AccordionHeader onClick={() => handleOpen(2)} className="border-b-0 p-3">
+                Dashboard
+              </AccordionHeader>
+            </ListItem>
+            <AccordionBody>
+              <ListItem>Analytics</ListItem>
+            </AccordionBody>
+          </Accordion>
+
+          <Link href="/addnotice">
+            <ListItem>
               <ListItemPrefix>
-                <ShoppingBagIcon className="h-5 w-5" />
+                <InboxIcon className="h-5 w-5" />
               </ListItemPrefix>
               Add Notice
             </ListItem>
@@ -243,15 +184,7 @@ const AddNotice = () => {
         </form>
       </Card>
     </div>
-    <label for="remember" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Remember me</label>
-  </div> */}
-  <button type="submit"  className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
-</form>
-{/* Edit Notices */}
-    </Card>
-    {/* </Card> */}
-    </div>
-  )
-}
+  );
+};
 
-export default AddNotice
+export default AddNotice;

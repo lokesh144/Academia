@@ -1,45 +1,45 @@
 "use client";
 import React, { useState } from "react";
 import {
-  Card,
-  Input,
-  Checkbox,
-  Button,
-  Typography,
-} from "@material-tailwind/react";
+  ChevronRight,
+  Upload,
+  GraduationCap,
+  CheckCircle2,
+} from "lucide-react";
+import Navbarr from "./Navbarr";
 
-const Teacher = () => {
-  // const handleSubmit=()=>{
-  //   alert("Form submitted successfully");
-  // }
-  const [fname, setFname] = useState('');
-  const [lname, setLname] = useState('');
-  const [email, setEmail] = useState('');
-  const [contact, setContact] = useState('');
-  const handleSubmit = async (event) => {
-    // alert("Notice added successfully");
-    event.preventDefault();
-    // const data = { fname,lname,email,contact };
+const TeacherSetup = () => {
+  const [selectedFiles, setSelectedFiles] = useState([]);
+  const [uploadProgress, setUploadProgress] = useState({});
+  const [uploadedFiles, setUploadedFiles] = useState([]);
+
+  const handleFileSelect = (event) => {
+    const files = Array.from(event.target.files);
+    setSelectedFiles(files);
+  };
+
+  console.log(selectedFiles);
+
+  const handleUpload = async () => {
+    for (const file of selectedFiles) {
+      await uploadFile(file);
+    }
+    setSelectedFiles([]);
+  };
+
+  const uploadFile = async (file) => {
+    const formData = new FormData();
+    formData.append("file", file);
+
     try {
-        const res = await fetch('http://localhost:5000/api/teachers', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({fname: fname,lname: lname,email:email,contact:contact})
-        });
-        const data = await res.json();
-      // setNoticeData(result)
-      // console.log("Before set",event);
-      // const fevent = event.firstEvents;
-      console.log("After Submit events",data);
-        // setResponse(result);
-        // console.log(result[0].filteredNotices[6].selectedClasses);
-        if (res.ok) {
-          alert('Data submitted successfully!');
-        } else {
-          alert('Failed to submit data');
-        }
+      const response = await fetch("/api/teacher", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        setUploadedFiles((prev) => [...prev, file.name]);
+      }
     } catch (error) {
       console.error("Upload failed:", error);
     }
@@ -107,8 +107,8 @@ const Teacher = () => {
     } else {
       alert(result.error);
     }
-    // alert("Form submit successful !")
-};
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbarr />
@@ -314,9 +314,6 @@ const Select = ({ label, options, ...props }) => (
         </option>
       ))}
     </select>
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.2" stroke="currentColor" className="h-5 w-5 ml-1 absolute top-3.5 right-2 text-slate-700">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15 12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
-    </svg>
   </div>
 );
 
@@ -350,41 +347,4 @@ const Label = ({ text }) => (
   </label>
 );
 
-    <div class="max-w-md">
-      <label class="text-base font-semibold mb-2 block">Academic Degree</label>
-      <input type="file"
-        class="w-64 font-semibold text-sm bg-white border file:cursor-pointer cursor-pointer file:border-0 file:py-3 file:px-4 file:mr-4  rounded" />
-      <p class="text-xs mt-2">PNG, JPG are Allowed.</p>
-    </div>
-    </div>
-            </div>
-            <Checkbox
-              label={
-                <Typography
-                  variant="small"
-                  color="gray"
-                  className="flex items-center font-normal"
-                >
-                  I agree the
-                    &nbsp;Terms and Conditions
-                </Typography>
-              }
-              containerProps={{ className: "-ml-2.5" }}
-            /><br/>
-            <div class="flex justify-end">
-            <Button className="mt-6 text-base" type="submit">
-              submit
-            </Button>
-            </div>
-            {/* <Typography color="gray" className="mt-4 text-center font-normal">
-              Already have an account?{" "}
-              <a href="#" className="font-medium text-gray-900">
-                Sign In
-              </a>
-            </Typography> */}
-          </form>
-        </Card>
-      );
-}
-
-export default Teacher
+export default TeacherSetup;
