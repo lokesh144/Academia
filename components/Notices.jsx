@@ -19,10 +19,7 @@ const Notices = () => {
     } else {
       setNoticeData(data || []);
     }
-
-    setLoading(false);
-  };
-
+};
   useEffect(() => {
     fetchNotices();
   }, []);
@@ -103,6 +100,7 @@ const Notices = () => {
     );
   }
 
+  // const lists=noticeData;
   return (
     <div className="bg-white px-3 py-4">
       <h1 className="text-5xl mx-auto w-fit font-bold mb-4 text-center uppercase text-gray-900 my-6 border-2 border-gray-700 rounded-xl shadow-md px-8 py-3 bg-white">
@@ -142,4 +140,4 @@ const Notices = () => {
   );
 };
 
-export default Notices;
+export default Notices
