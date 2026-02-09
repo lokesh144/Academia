@@ -12,8 +12,8 @@ export default function AdminLogin() {
     e.preventDefault();
 
     if (
-      username === process.env.NEXT_PUBLIC_ADMIN_USERNAME &&
-      password === process.env.NEXT_PUBLIC_ADMIN_PASSWORD
+      username === "admin" &&
+      password === "admin@123"
     ) {
       await fetch("/api/admin/login", { method: "POST" });
       router.push("/addnotice");
