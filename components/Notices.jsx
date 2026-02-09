@@ -7,6 +7,8 @@ const Notices = () => {
   const [noticeData, setNoticeData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState("all");
+  const [selectedClasses, setSelectedClasses] = useState([]);
+  const [showClassFilter, setShowClassFilter] = useState(false);
 
   const fetchNotices = async () => {
     const { data, error } = await supabase
@@ -40,10 +42,30 @@ const Notices = () => {
     return [];
   };
 
-  const filteredNotices =
-    activeCategory === "all"
-      ? noticeData
-      : noticeData.filter((n) => n.category === activeCategory);
+  const allClasses = Array.from(
+    new Set(noticeData.flatMap((n) => normalizeClasses(n.classes)))
+  );
+
+  const toggleClass = (cls) => {
+    setSelectedClasses((prev) =>
+      prev.includes(cls)
+        ? prev.filter((c) => c !== cls)
+        : [...prev, cls]
+    );
+  };
+
+  const filteredNotices = noticeData.filter((n) => {
+    const categoryMatch =
+      activeCategory === "all" || n.category === activeCategory;
+
+    const classMatch =
+      selectedClasses.length === 0 ||
+      normalizeClasses(n.classes).some((cls) =>
+        selectedClasses.includes(cls)
+      );
+
+    return categoryMatch && classMatch;
+  });
 
   const NoticeCard = ({ id, title, descrp, classes, category }) => {
     const isAcademic = category === "academic";
@@ -52,10 +74,9 @@ const Notices = () => {
       <div
         key={id}
         className={`relative flex flex-col m-4 shadow-lg w-80 rounded-xl overflow-hidden ${
-    isAcademic ? "bg-[#3D72CC]" : "bg-white"
-  }`}
+          isAcademic ? "bg-[#3D72CC]" : "bg-white"
+        }`}
       >
-        {/* 🔴 THIS IS THE FIX */}
         <div
           className={`${isAcademic ? "academic-border rounded-xl" : "shining-border"}`}>
           <div className="pt-5 pr-5 pb-2 pl-5">
@@ -64,16 +85,17 @@ const Notices = () => {
             <h5 className="mb-2 text-[1.3rem] font-semibold text-black">{title}</h5>
 
             <p className="text-base font-light text-black">{descrp}</p>
-        {isAcademic && (
-  <div className="absolute bottom-0 -right-12 top-9 overflow-hidden">
-    <Image 
-      src="/academic.png" 
-      width={120} 
-      height={300} 
-      alt="Academic" 
-    />
-  </div>
-)}
+
+            {isAcademic && (
+              <div className="absolute bottom-0 -right-12 top-9 overflow-hidden">
+                <Image
+                  src="/academic.png"
+                  width={120}
+                  height={300}
+                  alt="Academic"
+                />
+              </div>
+            )}
           </div>
 
           <div className="flex flex-wrap px-4 mb-3">
@@ -106,7 +128,8 @@ const Notices = () => {
         Notices
       </h1>
 
-      <div className="flex gap-7 mb-4 border-b pb-1">
+      {/* CATEGORY ROW */}
+      <div className="flex gap-7 mb-4 border-b pb-1 items-center">
         {["all", "general", "academic"].map((type) => (
           <button
             key={type}
@@ -120,12 +143,45 @@ const Notices = () => {
             {type === "all"
               ? "All Notices"
               : type === "general"
-                ? "General Notices"
-                : "Academic Notices"}
+              ? "General Notices"
+              : "Academic Notices"}
           </button>
         ))}
+
+        {/* FILTER BY CLASS (RELATIVE WRAPPER) */}
+        <div className="ml-auto relative">
+          <button
+            onClick={() => setShowClassFilter((prev) => !prev)}
+            className="text-lg font-semibold text-gray-700 hover:text-black mr-5"
+          >
+            Filter by Class
+          </button>
+
+          {/* DROPDOWN (APPEARS JUST BELOW BUTTON) */}
+          {showClassFilter && (
+            <div className="absolute right-0 mt-2 border p-4 rounded-lg bg-gray-50 shadow-lg z-50 min-w-[200px]">
+              <div className="flex flex-col gap-3">
+                {allClasses.map((cls) => (
+                  <label
+                    key={cls}
+                    className="flex items-center gap-2 text-gray-700 cursor-pointer"
+                  >
+                    <input
+                      type="checkbox"
+                      checked={selectedClasses.includes(cls)}
+                      onChange={() => toggleClass(cls)}
+                      className="accent-black"
+                    />
+                    <span>{cls}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
       </div>
 
+      {/* NOTICES (UNCHANGED) */}
       <div className="flex flex-wrap justify-start">
         {filteredNotices.length === 0 ? (
           <p className="text-black font-medium">No notices available</p>
