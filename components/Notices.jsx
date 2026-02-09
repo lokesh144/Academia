@@ -21,10 +21,8 @@ const Notices = () => {
     } else {
       setNoticeData(data || []);
     }
-
     setLoading(false);
-  };
-
+};
   useEffect(() => {
     fetchNotices();
   }, []);
@@ -72,13 +70,12 @@ const Notices = () => {
         }`}
       >
         <div
-          className="shining-border rounded-xl"
-          style={isAcademic ? { backgroundColor: "#3D72CC" } : {}}
-        >
-          <div className="pt-5 pr-5 pb-2 pl-5 relative">
+          className={`${isAcademic ? "academic-border rounded-xl" : "shining-border"}`}>
+          <div className="pt-5 pr-5 pb-2 pl-5">
             <Image src="/notice.png" width={30} height={30} alt="Notice" />
 
-            <h5 className="mb-2 text-xl font-semibold text-black">{title}</h5>
+            <h5 className="mb-2 text-[1.3rem] font-semibold text-black">{title}</h5>
+
             <p className="text-base font-light text-black">{descrp}</p>
 
             {isAcademic && (
@@ -203,4 +200,4 @@ const Notices = () => {
   );
 };
 
-export default Notices;
+export default Notices

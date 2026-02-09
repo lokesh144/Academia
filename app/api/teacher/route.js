@@ -23,7 +23,7 @@ export async function POST(req) {
     // for multipart we get formdata instead of parsing json
     const formData = await req.formData();
 
-  
+
 
     const frontDocument = formData.get("file");
     const bytes = await frontDocument.arrayBuffer();
