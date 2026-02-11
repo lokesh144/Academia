@@ -132,13 +132,40 @@ const NoticesDashboard = () => {
     setCategory(n.category);
     setActiveView("add");
   };
-
   const handleDelete = async (id) => {
-    if (!confirm("Delete this notice?")) return;
-    await supabase.from("notices").delete().eq("id", id);
-    fetchNotices();
-  };
+    Swal.fire({
+      title: "Are you sure?",
+      text: "This notice will be permanently removed from the archive. You won't be able to revert this action!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",    // Red for delete
+      cancelButtonColor: "#475569",  // Gray for cancel
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "No, keep it",
+      reverseButtons: true           // Puts "Keep it" on the left
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const { error } = await supabase.from("notices").delete().eq("id", id);
+          
+          if (error) throw error;
 
+          // Success notification after deletion
+          Swal.fire({
+            title: "Deleted!",
+            text: "The notice has been successfully removed.",
+            icon: "success",
+            timer: 2000,
+            showConfirmButton: false
+          });
+
+          fetchNotices(); // Refresh the list
+        } catch (error) {
+          Swal.fire("Error", "There was a problem deleting this notice.", "error");
+        }
+      }
+    });
+  };
   const filteredNotices = notices.filter((n) => {
     const matchesSearch = n.title
       .toLowerCase()
@@ -356,7 +383,7 @@ const NoticesDashboard = () => {
                               </div>
                             </td>
                             <td className="p-4">
-                              <Typography variant="small" className="text-xs text-gray-600">
+                              <Typography className="text">
                                 {normalizeClasses(n.classes).join("\u00A0\u00A0\u00A0")}
                               </Typography>
                             </td>
