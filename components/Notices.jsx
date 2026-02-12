@@ -22,7 +22,8 @@ const Notices = () => {
       setNoticeData(data || []);
     }
     setLoading(false);
-};
+  };
+
   useEffect(() => {
     fetchNotices();
   }, []);
@@ -42,15 +43,9 @@ const Notices = () => {
     return [];
   };
 
-  const allClasses = Array.from(
-    new Set(noticeData.flatMap((n) => normalizeClasses(n.classes)))
-  );
-
   const toggleClass = (cls) => {
     setSelectedClasses((prev) =>
-      prev.includes(cls)
-        ? prev.filter((c) => c !== cls)
-        : [...prev, cls]
+      prev.includes(cls) ? prev.filter((c) => c !== cls) : [...prev, cls]
     );
   };
 
@@ -73,21 +68,26 @@ const Notices = () => {
     return (
       <div
         key={id}
-        className={`relative flex flex-col m-4 shadow-lg w-80 rounded-xl overflow-hidden ${
+        className={`relative flex flex-col m-4 shadow-lg w-[700px] h-[200px] rounded-xl overflow-hidden ${
           isAcademic ? "bg-[#3D72CC]" : "bg-white"
         }`}
       >
         <div
-          className={`${isAcademic ? "academic-border rounded-xl" : "shining-border"}`}>
+          className={`${
+            isAcademic ? "academic-border rounded-xl" : "shining-border"
+          }`}
+        >
           <div className="pt-5 pr-5 pb-2 pl-5">
             <Image src="/notice.png" width={30} height={30} alt="Notice" />
 
-            <h5 className="mb-2 text-[1.3rem] font-semibold text-black">{title}</h5>
+            <h5 className="mb-2 text-[1.3rem] font-semibold text-black">
+              {title}
+            </h5>
 
             <p className="text-base font-light text-black">{descrp}</p>
 
             {isAcademic && (
-              <div className="absolute bottom-0 -right-12 top-9 overflow-hidden">
+              <div className="absolute bottom-0 -right-16 top-3 overflow-hidden">
                 <Image
                   src="/academic.png"
                   width={120}
@@ -121,7 +121,21 @@ const Notices = () => {
     );
   }
 
-  // const lists=noticeData;
+  const orderedClasses = [
+    "LKG",
+    "UKG",
+    "one",
+    "two",
+    "three",
+    "four",
+    "five",
+    "six",
+    "seven",
+    "eight",
+    "nine",
+    "ten",
+  ];
+
   return (
     <div className="bg-white px-3 py-4">
       <h1 className="text-5xl mx-auto w-fit font-bold mb-4 text-center uppercase text-gray-900 my-6 border-2 border-gray-700 rounded-xl shadow-md px-8 py-3 bg-white">
@@ -148,20 +162,18 @@ const Notices = () => {
           </button>
         ))}
 
-        {/* FILTER BY CLASS (RELATIVE WRAPPER) */}
         <div className="ml-auto relative">
           <button
             onClick={() => setShowClassFilter((prev) => !prev)}
-            className="text-lg font-semibold text-gray-700 hover:text-black mr-5"
+            className="text-lg font-semibold text-gray-700 hover:text-black mr-40"
           >
             Filter by Class
           </button>
 
-          {/* DROPDOWN (APPEARS JUST BELOW BUTTON) */}
           {showClassFilter && (
-            <div className="absolute right-0 mt-2 border p-4 rounded-lg bg-gray-50 shadow-lg z-50 min-w-[200px]">
-              <div className="flex flex-col gap-3">
-                {allClasses.map((cls) => (
+            <div className="absolute right-6 mt-2 border border-black p-4 rounded-lg bg-gray-50 z-50">
+              <div className="grid grid-cols-3 gap-6">
+                {orderedClasses.map((cls) => (
                   <label
                     key={cls}
                     className="flex items-center gap-2 text-gray-700 cursor-pointer"
@@ -170,9 +182,9 @@ const Notices = () => {
                       type="checkbox"
                       checked={selectedClasses.includes(cls)}
                       onChange={() => toggleClass(cls)}
-                      className="accent-black"
+                      className="accent-black size-5"
                     />
-                    <span>{cls}</span>
+                    <span className="text-lg font-bold">{cls}</span>
                   </label>
                 ))}
               </div>
@@ -181,8 +193,8 @@ const Notices = () => {
         </div>
       </div>
 
-      {/* NOTICES (UNCHANGED) */}
-      <div className="flex flex-wrap justify-start">
+      {/* 2 CARDS PER ROW */}
+      <div className="grid grid-cols-2 gap-6">
         {filteredNotices.length === 0 ? (
           <p className="text-black font-medium">No notices available</p>
         ) : (
@@ -195,4 +207,4 @@ const Notices = () => {
   );
 };
 
-export default Notices
+export default Notices;
