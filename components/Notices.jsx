@@ -22,7 +22,8 @@ const Notices = () => {
       setNoticeData(data || []);
     }
     setLoading(false);
-};
+  };
+
   useEffect(() => {
     fetchNotices();
   }, []);
@@ -44,7 +45,7 @@ const Notices = () => {
 
   const toggleClass = (cls) => {
     setSelectedClasses((prev) =>
-      prev.includes(cls) ? prev.filter((c) => c !== cls) : [...prev, cls],
+      prev.includes(cls) ? prev.filter((c) => c !== cls) : [...prev, cls]
     );
   };
 
@@ -54,7 +55,9 @@ const Notices = () => {
 
     const classMatch =
       selectedClasses.length === 0 ||
-      normalizeClasses(n.classes).some((cls) => selectedClasses.includes(cls));
+      normalizeClasses(n.classes).some((cls) =>
+        selectedClasses.includes(cls)
+      );
 
     return categoryMatch && classMatch;
   });
@@ -65,16 +68,21 @@ const Notices = () => {
     return (
       <div
         key={id}
-        className={`relative flex flex-col m-4 shadow-lg w-80 rounded-xl overflow-hidden ${
+        className={`relative flex flex-col m-4 shadow-lg w-[700px] h-[200px] rounded-xl overflow-hidden ${
           isAcademic ? "bg-[#3D72CC]" : "bg-white"
         }`}
       >
         <div
-          className={`${isAcademic ? "academic-border rounded-xl" : "shining-border"}`}>
+          className={`${
+            isAcademic ? "academic-border rounded-xl" : "shining-border"
+          }`}
+        >
           <div className="pt-5 pr-5 pb-2 pl-5">
             <Image src="/notice.png" width={30} height={30} alt="Notice" />
 
-            <h5 className="mb-2 text-[1.3rem] font-semibold text-black">{title}</h5>
+            <h5 className="mb-2 text-[1.3rem] font-semibold text-black">
+              {title}
+            </h5>
 
             <p className="text-base font-light text-black">{descrp}</p>
 
@@ -149,12 +157,11 @@ const Notices = () => {
             {type === "all"
               ? "All Notices"
               : type === "general"
-                ? "General Notices"
-                : "Academic Notices"}
+              ? "General Notices"
+              : "Academic Notices"}
           </button>
         ))}
 
-        {/* FILTER BY CLASS */}
         <div className="ml-auto relative">
           <button
             onClick={() => setShowClassFilter((prev) => !prev)}
@@ -186,8 +193,8 @@ const Notices = () => {
         </div>
       </div>
 
-      {/* NOTICES */}
-      <div className="flex flex-wrap justify-start">
+      {/* 2 CARDS PER ROW */}
+      <div className="grid grid-cols-2 gap-6">
         {filteredNotices.length === 0 ? (
           <p className="text-black font-medium">No notices available</p>
         ) : (
@@ -200,4 +207,4 @@ const Notices = () => {
   );
 };
 
-export default Notices
+export default Notices;

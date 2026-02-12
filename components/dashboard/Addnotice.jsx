@@ -2,7 +2,7 @@
 import Swal from "sweetalert2";
 import { useEffect, useState } from "react";
 import {
-  PencilIcon,
+  PencilSquareIcon,
   TrashIcon,
   MagnifyingGlassIcon,
 } from "@heroicons/react/24/solid";
@@ -124,25 +124,409 @@ const NoticesDashboard = () => {
     }
   };
 
-  const handleEdit = (n) => {
-    setEditId(n.id);
-    setTitle(n.title);
-    setDescp(n.descrp);
-    setSelectedClasses(normalizeClasses(n.classes));
-    setCategory(n.category);
-    setActiveView("add");
-  };
-  const handleDelete = async (id) => {
+  const showUpdateDialog = (notice) => {
+    // Inject custom CSS for update dialog
+    if (!document.getElementById("swal-update-styles")) {
+      const style = document.createElement("style");
+      style.id = "swal-update-styles";
+      style.innerHTML = `
+        .update-popup {
+          border-radius: 1rem !important;
+          padding: 0 !important;
+          width: 600px !important;
+          max-width: 90vw !important;
+        }
+        .update-header {
+          padding: 1.5rem;
+          border-bottom: 1px solid #e5e7eb;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+        .update-body {
+          padding: 1.5rem;
+        }
+        .update-input-group {
+          margin-bottom: 1.5rem;
+        }
+        .update-label {
+          display: block;
+          font-size: 0.875rem;
+          font-weight: 600;
+          color: #1f2937;
+          margin-bottom: 0.5rem;
+        }
+        .update-input {
+          width: 100%;
+          padding: 0.75rem;
+          border: 1px solid #d1d5db;
+          border-radius: 0.5rem;
+          font-size: 0.95rem;
+          outline: none;
+          transition: border-color 0.2s;
+        }
+        .update-input:focus {
+          border-color: #3b82f6;
+          box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        .update-textarea {
+          min-height: 100px;
+          resize: vertical;
+        }
+        .update-checkbox-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+          gap: 0.5rem;
+          max-height: 200px;
+          overflow-y: auto;
+          padding: 0.75rem;
+          background: #f9fafb;
+          border-radius: 0.5rem;
+          border: 1px solid #e5e7eb;
+        }
+        .update-checkbox-label {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          cursor: pointer;
+          font-size: 0.875rem;
+          color: #374151;
+        }
+        .update-checkbox {
+          width: 16px;
+          height: 16px;
+          cursor: pointer;
+        }
+        .update-radio-group {
+          display: flex;
+          gap: 1.5rem;
+        }
+        .update-radio-label {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          cursor: pointer;
+          font-size: 0.95rem;
+          color: #374151;
+        }
+        .update-warning {
+          background: #fef3c7;
+          color: #92400e;
+          padding: 0.75rem 1rem;
+          border-radius: 0.5rem;
+          font-size: 0.875rem;
+          font-style: italic;
+          margin-bottom: 1rem;
+        }
+        .update-btn {
+          width: 100%;
+          padding: 0.875rem;
+          border-radius: 0.5rem;
+          font-weight: 600;
+          font-size: 1rem;
+          border: none;
+          cursor: pointer;
+          transition: background-color 0.2s;
+        }
+        .update-btn-primary {
+          background-color: #10b981;
+          color: white;
+        }
+        .update-btn-primary:hover {
+          background-color: #059669;
+        }
+        .swal2-close {
+          color: #6b7280 !important;
+          font-size: 2rem !important;
+        }
+        .swal2-html-container {
+          margin: 0 !important;
+          padding: 0 !important;
+        }
+      `;
+      document.head.appendChild(style);
+    }
+
+    const tempSelectedClasses = [...normalizeClasses(notice.classes)];
+    let tempTitle = notice.title;
+    let tempDescription = notice.descrp;
+    let tempCategory = notice.category;
+
+    const updateDialogContent = () => `
+      <div>
+        <div class="update-header">
+          <h2 style="margin: 0; font-size: 1.5rem; font-weight: 600; color: #1f2937;">Update Notice</h2>
+        </div>
+        <div class="update-body">
+          <div class="update-input-group">
+            <label class="update-label">Notice Title</label>
+            <input 
+              type="text" 
+              class="update-input" 
+              id="update-title" 
+              value="${tempTitle}"
+              placeholder="Enter notice title"
+            />
+          </div>
+
+          <div class="update-input-group">
+            <label class="update-label">Description</label>
+            <textarea 
+              class="update-input update-textarea" 
+              id="update-description"
+              placeholder="Enter detailed description"
+            >${tempDescription}</textarea>
+          </div>
+
+          <div class="update-input-group">
+            <label class="update-label">Category</label>
+            <div class="update-radio-group">
+              <label class="update-radio-label">
+                <input 
+                  type="radio" 
+                  name="category" 
+                  value="general" 
+                  ${tempCategory === 'general' ? 'checked' : ''}
+                  class="update-checkbox"
+                />
+                <span>General</span>
+              </label>
+              <label class="update-radio-label">
+                <input 
+                  type="radio" 
+                  name="category" 
+                  value="academic" 
+                  ${tempCategory === 'academic' ? 'checked' : ''}
+                  class="update-checkbox"
+                />
+                <span>Academic</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="update-input-group">
+            <label class="update-label">Select Classes</label>
+            <div class="update-checkbox-grid" id="classes-container">
+              ${classList.map(c => `
+                <label class="update-checkbox-label">
+                  <input 
+                    type="checkbox" 
+                    class="update-checkbox class-checkbox" 
+                    value="${c}"
+                    ${tempSelectedClasses.includes(c) ? 'checked' : ''}
+                  />
+                  <span>${c}</span>
+                </label>
+              `).join('')}
+            </div>
+          </div>
+
+          <div class="update-warning">
+            Updating notice will modify all future occurrences.
+          </div>
+
+          <button class="update-btn update-btn-primary" id="confirm-update-btn">
+            Update Notice
+          </button>
+        </div>
+      </div>
+    `;
+
     Swal.fire({
-      title: "Are you sure?",
-      text: "This notice will be permanently removed from the archive. You won't be able to revert this action!",
-      icon: "warning",
+      html: updateDialogContent(),
+      showConfirmButton: false,
+      showCloseButton: true,
+      customClass: {
+        popup: 'update-popup'
+      },
+      didOpen: () => {
+        const titleInput = document.getElementById('update-title');
+        const descriptionInput = document.getElementById('update-description');
+        const categoryRadios = document.querySelectorAll('input[name="category"]');
+        const classCheckboxes = document.querySelectorAll('.class-checkbox');
+        const confirmBtn = document.getElementById('confirm-update-btn');
+
+        // Update temp values on input
+        titleInput.addEventListener('input', (e) => {
+          tempTitle = e.target.value;
+        });
+
+        descriptionInput.addEventListener('input', (e) => {
+          tempDescription = e.target.value;
+        });
+
+        categoryRadios.forEach(radio => {
+          radio.addEventListener('change', (e) => {
+            tempCategory = e.target.value;
+          });
+        });
+
+        classCheckboxes.forEach(checkbox => {
+          checkbox.addEventListener('change', (e) => {
+            if (e.target.checked) {
+              if (!tempSelectedClasses.includes(e.target.value)) {
+                tempSelectedClasses.push(e.target.value);
+              }
+            } else {
+              const index = tempSelectedClasses.indexOf(e.target.value);
+              if (index > -1) {
+                tempSelectedClasses.splice(index, 1);
+              }
+            }
+          });
+        });
+
+        confirmBtn.addEventListener('click', async () => {
+          if (!tempTitle.trim()) {
+            Swal.fire({
+              icon: 'warning',
+              title: 'Missing Title',
+              text: 'Please enter a notice title',
+              timer: 2000,
+              showConfirmButton: false
+            });
+            return;
+          }
+
+          if (!tempDescription.trim()) {
+            Swal.fire({
+              icon: 'warning',
+              title: 'Missing Description',
+              text: 'Please enter a description',
+              timer: 2000,
+              showConfirmButton: false
+            });
+            return;
+          }
+
+          if (tempSelectedClasses.length === 0) {
+            Swal.fire({
+              icon: 'warning',
+              title: 'No Classes Selected',
+              text: 'Please select at least one class',
+              timer: 2000,
+              showConfirmButton: false
+            });
+            return;
+          }
+
+          try {
+            const payload = {
+              title: tempTitle,
+              descrp: tempDescription,
+              classes: tempSelectedClasses,
+              category: tempCategory
+            };
+
+            await supabase.from("notices").update(payload).eq("id", notice.id);
+
+            Swal.fire({
+              title: "Success!",
+              text: "Notice updated successfully.",
+              icon: "success",
+              timer: 1500,
+              showConfirmButton: false,
+            });
+
+            resetForm();
+            fetchNotices();
+          } catch (error) {
+            Swal.fire("Error", "Could not update the notice.", "error");
+          }
+        });
+      }
+    });
+  };
+
+  const handleEdit = (n) => {
+    // Show custom update popup instead of switching to add view
+    showUpdateDialog(n);
+  };
+
+  const handleDelete = async (id) => {
+    // Inject custom CSS to handle bottom-right alignment and button styling
+    if (!document.getElementById("swal-custom-styles")) {
+      const style = document.createElement("style");
+      style.id = "swal-custom-styles";
+      style.innerHTML = `
+        .swal2-actions {
+          justify-content: flex-end !important;
+          width: 100% !important;
+          padding: 0 1.5rem 1.5rem 0 !important;
+          margin: 1.5rem 0 0 0 !important;
+        }
+        .custom-confirm-btn {
+          background-color: #ef4444 !important;
+          color: white !important;
+          padding: 10px 24px !important;
+          border-radius: 8px !important;
+          font-weight: 600 !important;
+          border: none !important;
+          margin-left: 10px !important;
+        }
+        .custom-cancel-btn {
+          background-color: white !important;
+          color: #000000 !important;
+          padding: 10px 24px !important;
+          border-radius: 8px !important;
+          font-weight: 600 !important;
+          border: 1px solid #d1d5db !important;
+        }
+        .swal2-html-container {
+          margin: 0 !important;
+          overflow: hidden !important;
+          text-align: left !important;
+          padding: 0 !important;
+        }
+        .swal2-popup {
+          border-radius: 1rem !important;
+          padding: 1.5rem !important;
+          height: auto !important;
+        }
+        .swal2-title {
+          text-align: left !important;
+          padding: 0 !important;
+          margin: 0 !important;
+        }
+      `;
+      document.head.appendChild(style);
+    }
+
+    Swal.fire({
+      html: `
+        <div style="display: flex; align-items: flex-start; gap: 0.75rem; text-align: left;">
+        <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="22"
+    height="22"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="#ef4444"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    style="margin-top: 2px;"
+  >
+    <polyline points="3 6 5 6 21 6"></polyline>
+    <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path>
+    <path d="M10 11v6"></path>
+    <path d="M14 11v6"></path>
+    <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path>
+  </svg>
+          <h2 style="margin: 0 0 0.5rem 0; font-size: 1.25rem; font-weight: 600; color: #000;">Are you sure?</h2>
+          <p style="margin: 0; color: #6b7280; font-size: 0.95rem;"></p>
+        </div>
+      `,
       showCancelButton: true,
-      confirmButtonColor: "#d33",    // Red for delete
-      cancelButtonColor: "#475569",  // Gray for cancel
-      confirmButtonText: "Yes, delete it!",
-      cancelButtonText: "No, keep it",
-      reverseButtons: true           // Puts "Keep it" on the left
+      confirmButtonText: "Confirm",
+      cancelButtonText: "Cancel",
+      buttonsStyling: false,
+      reverseButtons: true,
+      width: '550px',
+      customClass: {
+        confirmButton: 'custom-confirm-btn',
+        cancelButton: 'custom-cancel-btn'
+      }
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
@@ -150,22 +534,22 @@ const NoticesDashboard = () => {
           
           if (error) throw error;
 
-          // Success notification after deletion
+          // Simple Success Message
           Swal.fire({
             title: "Deleted!",
-            text: "The notice has been successfully removed.",
             icon: "success",
-            timer: 2000,
+            timer: 1500,
             showConfirmButton: false
           });
 
-          fetchNotices(); // Refresh the list
+          fetchNotices();
         } catch (error) {
-          Swal.fire("Error", "There was a problem deleting this notice.", "error");
+          Swal.fire("Error", "Could not delete notice", "error");
         }
       }
     });
   };
+
   const filteredNotices = notices.filter((n) => {
     const matchesSearch = n.title
       .toLowerCase()
@@ -279,7 +663,7 @@ const NoticesDashboard = () => {
               </div>
 
               <div className="py-2">
-                <Typography variant="small" className="font-bold text-gray-600 mb-2">Target Classes:</Typography>
+                <Typography variant="small" className="font-bold text-gray-600 mb-2">Select Classes:</Typography>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-2 bg-gray-50 p-4 rounded-xl border border-gray-200">
                   {classList.map((c) => (
                     <label key={c} className="flex items-center gap-2 cursor-pointer hover:bg-white p-1 rounded transition-colors">
@@ -296,9 +680,9 @@ const NoticesDashboard = () => {
                 </div>
               </div>
 
-              <div className="flex gap-4 pt-4">
-                <Button type="submit" color="blue" className="px-10">
-                  {editId ? "Update Notice" : "Post Notice"}
+              <div className="flex gap-4 pt-4 justify-end">
+                <Button type="submit" color="blue" className="px-10 bg-green-400">
+                  {editId ? "Update Notice" : "Add Notice"}
                 </Button>
                 {editId && (
                   <Button variant="outlined" color="gray" onClick={resetForm}>
@@ -314,7 +698,7 @@ const NoticesDashboard = () => {
           <Card className="shadow-lg bg-white overflow-hidden">
             <div className="p-6">
               <Typography variant="h4" color="blue-gray" className="mb-4">
-                Notices Archive
+                All Notices
               </Typography>
               <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
                 <Tabs value={categoryFilter} className="w-full md:w-max">
@@ -325,7 +709,7 @@ const NoticesDashboard = () => {
                       { label: "Academic", value: "academic" },
                     ].map(({ label, value }) => (
                       <Tab
-                        className="!uppercase px-6 py-2"
+                        className="px-6 py-2"
                         key={value}
                         value={value}
                         onClick={() => {
@@ -359,11 +743,11 @@ const NoticesDashboard = () => {
                 <table className="w-full min-w-max table-auto text-left">
                   <thead>
                     <tr className="bg-blue-gray-50/50">
-                      <th className="p-4 border-b border-blue-gray-100"><Typography variant="small" className="font-bold text-blue-600 uppercase opacity-70">Title</Typography></th>
-                      <th className="p-4 border-b border-blue-gray-100"><Typography variant="small" className="font-bold text-blue-600 uppercase opacity-70">Category</Typography></th>
-                      <th className="p-4 border-b border-blue-gray-100"><Typography variant="small" className="font-bold text-blue-600 uppercase opacity-70">Classes</Typography></th>
-                      <th className="p-4 border-b border-blue-gray-100"><Typography variant="small" className="font-bold text-blue-600 uppercase opacity-70">Posted On</Typography></th>
-                      <th className="p-4 border-b border-blue-gray-100 text-center"><Typography variant="small" className="font-bold text-blue-600 uppercase opacity-70">Actions</Typography></th>
+                      <th className="p-4 border-b border-blue-gray-100"><Typography variant="small" className="font-bold text-blue-900 uppercase opacity-70">Title</Typography></th>
+                      <th className="p-4 border-b border-blue-gray-100"><Typography variant="small" className="font-bold text-blue-900 uppercase opacity-70">Category</Typography></th>
+                      <th className="p-4 border-b border-blue-gray-100"><Typography variant="small" className="font-bold text-blue-900 uppercase opacity-70">Classes</Typography></th>
+                      <th className="p-4 border-b border-blue-gray-100"><Typography variant="small" className="font-bold text-blue-900 uppercase opacity-70">Created At</Typography></th>
+                      <th className="p-4 border-b border-blue-gray-100 text-center"><Typography variant="small" className="font-bold text-blue-900 uppercase opacity-70">Actions</Typography></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -399,8 +783,8 @@ const NoticesDashboard = () => {
                             </td>
                             <td className="p-4 text-center">
                               <div className="flex justify-center items-center">
-                                <IconButton variant="text" color="blue" onClick={() => handleEdit(n)}>
-                                  <PencilIcon className="h-4 w-4" />
+                                <IconButton variant="text" color="black" onClick={() => handleEdit(n)}>
+                                  <PencilSquareIcon className="h-4 w-4" />
                                 </IconButton>
                                 <IconButton variant="text" color="red" onClick={() => handleDelete(n.id)}>
                                   <TrashIcon className="h-4 w-4" />
