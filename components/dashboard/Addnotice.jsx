@@ -1,4 +1,5 @@
 "use client";
+import toast, { Toaster } from 'react-hot-toast';
 import Swal from "sweetalert2";
 import { useEffect, useState } from "react";
 import {
@@ -96,26 +97,12 @@ const NoticesDashboard = () => {
       };
 
       if (editId) {
-        await supabase.from("notices").update(payload).eq("id", editId);
-        // Popup for Update
-        Swal.fire({
-          title: "Success!",
-          text: "Notice updated successfully.",
-          icon: "success",
-          timer: 1500,
-          showConfirmButton: false,
-        });
-      } else {
-        await supabase.from("notices").insert([payload]);
-        // Popup for Create
-        Swal.fire({
-          title: "Posted!",
-          text: "Your notice is now live.",
-          icon: "success",
-          timer: 1500,
-          showConfirmButton: false,
-        });
-      }
+  await supabase.from("notices").update(payload).eq("id", editId);
+  toast.success("Notice updated successfully!");
+} else {
+  await supabase.from("notices").insert([payload]);
+  toast.success("Your notice is now live!");
+}
       resetForm();
       fetchNotices();
       setActiveView("list");
@@ -155,6 +142,7 @@ const NoticesDashboard = () => {
           font-weight: 600;
           color: #1f2937;
           margin-bottom: 0.5rem;
+          text-align: left;
         }
         .update-input {
           width: 100%;
@@ -180,9 +168,9 @@ const NoticesDashboard = () => {
           max-height: 200px;
           overflow-y: auto;
           padding: 0.75rem;
-          background: #f9fafb;
+          
           border-radius: 0.5rem;
-          border: 1px solid #e5e7eb;
+          
         }
         .update-checkbox-label {
           display: flex;
@@ -210,16 +198,16 @@ const NoticesDashboard = () => {
           color: #374151;
         }
         .update-warning {
-          background: #fef3c7;
-          color: #92400e;
           padding: 0.75rem 1rem;
           border-radius: 0.5rem;
           font-size: 0.875rem;
           font-style: italic;
           margin-bottom: 1rem;
+          color: #000000;
         }
         .update-btn {
-          width: 100%;
+          display: flex
+          justify-content: flex-end;
           padding: 0.875rem;
           border-radius: 0.5rem;
           font-weight: 600;
@@ -228,6 +216,12 @@ const NoticesDashboard = () => {
           cursor: pointer;
           transition: background-color 0.2s;
         }
+          .update-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+
         .update-btn-primary {
           background-color: #10b981;
           color: white;
@@ -255,7 +249,7 @@ const NoticesDashboard = () => {
     const updateDialogContent = () => `
       <div>
         <div class="update-header">
-          <h2 style="margin: 0; font-size: 1.5rem; font-weight: 600; color: #1f2937;">Update Notice</h2>
+          <h2 style="margin: 0; font-size: 1.5rem; font-weight: 600; color: #1f2937;">Edit Notice</h2>
         </div>
         <div class="update-body">
           <div class="update-input-group">
@@ -321,13 +315,13 @@ const NoticesDashboard = () => {
             </div>
           </div>
 
-          <div class="update-warning">
-            Updating notice will modify all future occurrences.
-          </div>
+          
 
-          <button class="update-btn update-btn-primary" id="confirm-update-btn">
-            Update Notice
-          </button>
+          <div class="update-actions">
+  <button class="update-btn update-btn-primary" id="confirm-update-btn">
+    Update
+  </button>
+</div>
         </div>
       </div>
     `;
@@ -418,15 +412,10 @@ const NoticesDashboard = () => {
               category: tempCategory
             };
 
-            await supabase.from("notices").update(payload).eq("id", notice.id);
+           await supabase.from("notices").update(payload).eq("id", notice.id);
 
-            Swal.fire({
-              title: "Success!",
-              text: "Notice updated successfully.",
-              icon: "success",
-              timer: 1500,
-              showConfirmButton: false,
-            });
+toast.success("Notice updated successfully!");
+Swal.close(); // Close the update dialog
 
             resetForm();
             fetchNotices();
@@ -452,6 +441,7 @@ const NoticesDashboard = () => {
         .swal2-actions {
           justify-content: flex-end !important;
           width: 100% !important;
+          margin-top: 1.5rem !important;
           padding: 0 1.5rem 1.5rem 0 !important;
           margin: 1.5rem 0 0 0 !important;
         }
@@ -479,8 +469,8 @@ const NoticesDashboard = () => {
           padding: 0 !important;
         }
         .swal2-popup {
-          border-radius: 1rem !important;
-          padding: 1.5rem !important;
+          border-radius: 0.75rem !important;
+          padding: 1rem !important;
           height: auto !important;
         }
         .swal2-title {
@@ -535,12 +525,7 @@ const NoticesDashboard = () => {
           if (error) throw error;
 
           // Simple Success Message
-          Swal.fire({
-            title: "Deleted!",
-            icon: "success",
-            timer: 1500,
-            showConfirmButton: false
-          });
+         toast.success("Notice deleted successfully!");
 
           fetchNotices();
         } catch (error) {
@@ -603,6 +588,7 @@ const NoticesDashboard = () => {
 
   return (
     <div className="flex min-h-screen bg-gray-100 text-gray-900">
+    <Toaster position="top-right" reverseOrder={false} />
       <aside className="w-64 bg-white shadow-lg p-6">
         <h2 className="text-xl font-bold mb-6 text-blue-gray-800">Notice Panel</h2>
         <button
@@ -662,23 +648,27 @@ const NoticesDashboard = () => {
                 </div>
               </div>
 
-              <div className="py-2">
-                <Typography variant="small" className="font-bold text-gray-600 mb-2">Select Classes:</Typography>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-2 bg-gray-50 p-4 rounded-xl border border-gray-200">
-                  {classList.map((c) => (
-                    <label key={c} className="flex items-center gap-2 cursor-pointer hover:bg-white p-1 rounded transition-colors">
-                      <Checkbox
-                        ripple={false}
-                        className="h-4 w-4"
-                        containerProps={{ className: "p-0" }}
-                        checked={selectedClasses.includes(c)}
-                        onChange={() => handleCheckboxChange(c)}
-                      />{" "}
-                      <Typography className="text-xs font-medium text-gray-700">{c}</Typography>
-                    </label>
-                  ))}
-                </div>
-              </div>
+              <div className="py-4">
+  <Typography variant="small" className="font-semibold text-gray-700 mb-4 text-sm">
+    Select Classes:
+  </Typography>
+  <div className="grid grid-cols-4 gap-x-4 gap-y-4">
+    {classList.map((c) => (
+      <label key={c} className="flex items-center gap-2 cursor-pointer">
+        <Checkbox
+          ripple={false}
+          className="h-5 w-5"
+          containerProps={{ className: "p-0" }}
+          checked={selectedClasses.includes(c)}
+          onChange={() => handleCheckboxChange(c)}
+        />
+        <Typography className="text-sm font-medium text-gray-700">
+          {c}
+        </Typography>
+      </label>
+    ))}
+  </div>
+</div>
 
               <div className="flex gap-4 pt-4 justify-end">
                 <Button type="submit" color="blue" className="px-10 bg-green-400">
@@ -700,16 +690,26 @@ const NoticesDashboard = () => {
               <Typography variant="h4" color="blue-gray" className="mb-4">
                 All Notices
               </Typography>
-              <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-                <Tabs value={categoryFilter} className="w-full md:w-max">
-                  <TabsHeader>
+              <div className="flex flex-col items-center justify-between gap-1 md:flex-row py-1">
+              <Tabs
+                 value={categoryFilter}
+                 className="
+                 w-full md:w-max
+                [&_button]:py-[2px]
+                [&_button]:px-3
+                [&_button]:text-[11px]
+                [&_button]:min-h-0
+                [&_button]:leading-none
+                ">
+                
+             <TabsHeader>
                     {[
                       { label: "All", value: "all" },
                       { label: "General", value: "general" },
                       { label: "Academic", value: "academic" },
                     ].map(({ label, value }) => (
                       <Tab
-                        className="px-6 py-2"
+                        className="px-4 py-1"
                         key={value}
                         value={value}
                         onClick={() => {
@@ -762,13 +762,14 @@ const NoticesDashboard = () => {
                               </Typography>
                             </td>
                             <td className="p-4">
-                              <div className={`w-max px-2 py-1 rounded-md text-[10px] font-bold uppercase ${n.category === 'academic' ? 'bg-blue-50 text-blue-700' : 'bg-yellow-50 text-yellow-800'}`}>
-                                {n.category}
-                              </div>
+                              <div className={`w-max px-2 py-1 rounded-md text-sm font-bold uppercase ${ n.category === 'academic' ? 'bg-blue-50 text-blue-700': 'bg-yellow-50 text-yellow-800'}`}>
+                               {n.category}
+                          </div>
+
                             </td>
                             <td className="p-4">
                               <Typography className="text">
-                                {normalizeClasses(n.classes).join("\u00A0\u00A0\u00A0")}
+                                {normalizeClasses(n.classes).join("\u00A0")}
                               </Typography>
                             </td>
                             <td className="p-4">
