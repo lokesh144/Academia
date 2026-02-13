@@ -46,11 +46,11 @@ export default function EventDetails() {
               <span className="w-2 h-8 bg-indigo-600 mr-4 rounded-full"></span>
               Our Programs
             </h2>
-            <div className="grid md:grid-cols-2 gap-4">
+            <div className="grid md:grid-cols-2 gap-2">
               {programs.map((program, index) => (
                 <div
                   key={index}
-                  className="flex items-start space-x-3 p-4 rounded-lg hover:bg-indigo-50 transition-colors duration-200"
+                  className="flex items-start space-x-3 p-4 rounded-lg transition-colors duration-200"
                 >
                   <svg
                     className="w-6 h-6 text-indigo-600 flex-shrink-0 mt-0.5"
