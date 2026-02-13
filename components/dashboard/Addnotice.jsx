@@ -453,14 +453,17 @@ Swal.close(); // Close the update dialog
           font-weight: 600 !important;
           border: none !important;
           margin-left: 10px !important;
+          margin-top: 40px !important;
         }
         .custom-cancel-btn {
           background-color: white !important;
+          display: inline-block !important;
           color: #000000 !important;
           padding: 10px 24px !important;
           border-radius: 8px !important;
           font-weight: 600 !important;
           border: 1px solid #d1d5db !important;
+          margin-top: 40px !important;
         }
         .swal2-html-container {
           margin: 0 !important;
@@ -484,25 +487,7 @@ Swal.close(); // Close the update dialog
 
     Swal.fire({
       html: `
-        <div style="display: flex; align-items: flex-start; gap: 0.75rem; text-align: left;">
-        <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="22"
-    height="22"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="#ef4444"
-    stroke-width="2"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-    style="margin-top: 2px;"
-  >
-    <polyline points="3 6 5 6 21 6"></polyline>
-    <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path>
-    <path d="M10 11v6"></path>
-    <path d="M14 11v6"></path>
-    <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path>
-  </svg>
+        <div style="display: flex; align-items: flex-start; gap: 0.75rem; text-align: left margin-top: 10px">
           <h2 style="margin: 0 0 0.5rem 0; font-size: 1.25rem; font-weight: 600; color: #000;">Are you sure?</h2>
           <p style="margin: 0; color: #6b7280; font-size: 0.95rem;"></p>
         </div>
@@ -652,9 +637,9 @@ Swal.close(); // Close the update dialog
   <Typography variant="small" className="font-semibold text-gray-700 mb-4 text-sm">
     Select Classes:
   </Typography>
-  <div className="grid grid-cols-4 gap-x-4 gap-y-4">
+  <div className="grid grid-cols-4">
     {classList.map((c) => (
-      <label key={c} className="flex items-center gap-2 cursor-pointer">
+      <label key={c} className="flex items-center cursor-pointer">
         <Checkbox
           ripple={false}
           className="h-5 w-5"
