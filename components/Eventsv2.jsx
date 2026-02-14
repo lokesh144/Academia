@@ -92,11 +92,11 @@ export default function EventDetails() {
               <div className="space-y-4">
                 <div className="border-l-4 border-indigo-600 pl-4 py-2">
                   <p className="text-lg font-semibold text-gray-800">Day 1</p>
-                  <p className="text-gray-600">2082/11/05 (Magh 5, 2082)</p>
+                  <p className="text-gray-600">2082/11/05 (Falgun 5, 2082)</p>
                 </div>
                 <div className="border-l-4 border-purple-600 pl-4 py-2">
                   <p className="text-lg font-semibold text-gray-800">Day 2</p>
-                  <p className="text-gray-600">2082/11/06 (Magh 6, 2082)</p>
+                  <p className="text-gray-600">2082/11/06 (Falgun 6, 2082)</p>
                 </div>
               </div>
             </div>
