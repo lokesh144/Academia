@@ -124,16 +124,16 @@ const Notices = () => {
   const orderedClasses = [
     "LKG",
     "UKG",
-    "one",
-    "two",
-    "three",
-    "four",
-    "five",
-    "six",
-    "seven",
-    "eight",
-    "nine",
-    "ten",
+    "One",
+    "Two",
+    "Three",
+    "Four",
+    "Five",
+    "Six",
+    "Seven",
+    "Eight",
+    "Nine",
+    "Ten",
   ];
 
   return (
@@ -182,7 +182,7 @@ const Notices = () => {
                       type="checkbox"
                       checked={selectedClasses.includes(cls)}
                       onChange={() => toggleClass(cls)}
-                      className="accent-black size-5"
+                      className="accent-black w-5 h-5 flex-shrink-0"
                     />
                     <span className="text-lg font-bold">{cls}</span>
                   </label>
