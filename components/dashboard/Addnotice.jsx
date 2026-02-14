@@ -747,7 +747,7 @@ Swal.close(); // Close the update dialog
                               </Typography>
                             </td>
                             <td className="p-4">
-                              <div className={`w-max px-2 py-1 rounded-md text-sm font-bold uppercase ${ n.category === 'academic' ? 'bg-blue-50 text-blue-700': 'bg-yellow-50 text-yellow-800'}`}>
+                              <div className={`w-max px-2 py-1 rounded-md text-sm font-bold uppercase ${ n.category === 'academic' ? 'bg-blue-50 text-blue-700': 'bg-yellow-50 text-yellow-900'}`}>
                                {n.category}
                           </div>
 
@@ -773,7 +773,7 @@ Swal.close(); // Close the update dialog
                                   <PencilSquareIcon className="h-4 w-4" />
                                 </IconButton>
                                 <IconButton variant="text" color="red" onClick={() => handleDelete(n.id)}>
-                                  <TrashIcon className="h-4 w-4" />
+                                  <TrashIcon className="h-4 w-5" />
                                 </IconButton>
                               </div>
                             </td>
