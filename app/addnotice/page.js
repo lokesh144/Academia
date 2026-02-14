@@ -1,9 +1,8 @@
-import React from 'react'
-import AddNotice from '@/components/dashboard/Addnotice';
-const addnotice = () => {
-  return (
-    <AddNotice/>
-  )
-}
+import React from "react";
+import AllNotices from "@/components/dashboard/AllNotices";
 
-export default addnotice
+const addnotice = () => {
+  return <AllNotices />;
+};
+
+export default addnotice;
