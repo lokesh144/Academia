@@ -57,18 +57,16 @@ const Events = () => {
           Show Details
         </Button>
       </div>
-      {/* <div className="hidden md:block md:w-1/3">
+      <div className="hidden md:block md:w-1/3">
         <img
           src="https://via.placeholder.com/300"
           alt="Decorative"
           className="w-full h-auto rounded-r-lg"
         />
-      </div> */}
+      </div>
     </div>
   ))}
-    <h1 class="mt-16 block font-sans text-black text-5xl uppercase font-semibold leading-tight tracking-normal text-center bg-white">
-    Recent Events
-  </h1>
+   
     </div>
   )
 }

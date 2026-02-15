@@ -11,13 +11,13 @@ export default function Topbar() {
       <div className="justify-end sm:flex">
       <div className="w-0 lg:w-1/3 h-11 hidden lg:block"></div>
       <div className="topbar w-2/3 h-11 bg-gray-200 flex justify-end space-x-10 px-8 text-sm sm:text-base">
-        <div className="block sm:flex items-center space-x-4">
+        <div className="flex items-center space-x-4">
           <div className="contact flex items-center space-x-2">
           <PhoneIcon className="text-gray-600"/>
           <span className="text-md text-gray-600 font-semibold">071-538021</span>
           </div>
           <div className="email flex items-center space-x-2">
-          <MailboxIcon className="text-gray-600"/>
+          <MailIcon className="text-gray-600"/>
           <span className="text-md text-gray-600 font-semibold">peacelandaca@gmail.com</span>
           </div>
         </div>
@@ -36,7 +36,28 @@ export default function Topbar() {
   )
 }
 
-function MailboxIcon(props) {
+// function MailboxIcon(props) {
+//   return (
+//     <svg
+//       {...props}
+//       xmlns="http://www.w3.org/2000/svg"
+//       width="24"
+//       height="24"
+//       viewBox="0 0 24 24"
+//       fill="none"
+//       stroke="currentColor"
+//       strokeWidth="2"
+//       strokeLinecap="round"
+//       strokeLinejoin="round"
+//     >
+//       <path d="M22 17a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9.5C2 7 4 5 6.5 5H18c2.2 0 4 1.8 4 4v8Z" />
+//       <polyline points="15,9 18,9 18,11" />
+//       <path d="M6.5 5C9 5 11 7 11 9.5V17a2 2 0 0 1-2 2v0" />
+//       <line x1="6" x2="7" y1="10" y2="10" />
+//     </svg>
+//   )
+// }
+function MailIcon(props) {
   return (
     <svg
       {...props}
@@ -50,13 +71,15 @@ function MailboxIcon(props) {
       strokeLinecap="round"
       strokeLinejoin="round"
     >
-      <path d="M22 17a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9.5C2 7 4 5 6.5 5H18c2.2 0 4 1.8 4 4v8Z" />
-      <polyline points="15,9 18,9 18,11" />
-      <path d="M6.5 5C9 5 11 7 11 9.5V17a2 2 0 0 1-2 2v0" />
-      <line x1="6" x2="7" y1="10" y2="10" />
+      {/* Envelope body */}
+      <rect x="3" y="5" width="18" height="14" rx="2" ry="2" />
+
+      {/* Envelope flap */}
+      <path d="M3 7l9 6 9-6" />
     </svg>
   )
 }
+
 
 
 function PhoneIcon(props) {

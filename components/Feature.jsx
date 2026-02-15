@@ -45,7 +45,7 @@ const Feature = () => {
   // };
 
   return (
-    <section className="relative bg-white py-5 px-10">
+    <section className="relative bg-white py-5 px-4 md:px-10">
         <div className="feature-container mx-6 p-1">
           {/* <PageTitle section="Co-Working" heading="Build something">
             Put the potentially record low maximum sea ice extent tihs year down

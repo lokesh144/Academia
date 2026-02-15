@@ -18,7 +18,7 @@ import {
 import Image from 'next/image';
 const secCard = () => {
   return (
-    <section className="-mt-18 md:-mt-32 bg-white px-4 pt-4">
+    <section className="bg-white px-4 my-16 md:mb-0">
     <div className="container mx-auto">
       {/* <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {featuresData.map(({ color, title, icon, description }) => (
@@ -33,7 +33,7 @@ const secCard = () => {
           />
         ))}
       </div> */}
-      <div className="mt-32 flex flex-wrap items-center">
+      <div className="flex flex-wrap items-center">
         <div className="mx-auto -mt-8 w-full md:w-5/12">
           <div className="mb-6 inline-flex h-16 w-16 items-center justify-center rounded-full bg-blue-gray-900 p-2 text-center shadow-lg">
             <AcademicCapIcon className="h-8 w-8 text-white " />
@@ -80,7 +80,7 @@ const secCard = () => {
           <Image src="/girl.png" width={500} height={500} alt="Picture of the author" className="w-[300px] h-auto md:max-w-[400px] lg:w-[700px]"/>
         </div>
       </div>
-    </div>
+      </div>
   </section>
   )
 }
