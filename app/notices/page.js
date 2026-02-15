@@ -5,7 +5,7 @@ import Navbarr from '@/components/Navbarr';
 const events = () => {
   return (
     <>
-    <Topbar/>
+    <Topbar/><p>Side topbar</p>
     <Navbarr/>
     <Notices/>
     </>
