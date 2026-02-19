@@ -129,23 +129,18 @@ const Navbarr = () => {
     />
         <div className="flex items-center gap-4">
           <div className="mr-4 hidden lg:block uppercase font-tas">{navList}</div>
-          <div className="flex items-center gap-x-1">
-            {/* <Button
-              variant="text"
-              size="sm"
-              className="hidden lg:inline-block font-tas"
-            >
-              <span>Log In</span>
-            </Button> */}
-            {/* <Button
-              variant="linear"
-              size="sm"
-              className="hidden lg:inline-block font-tas text-[0.95rem] rounded-2xl bg-[#3b705b]"
-            ><Link href="/teacherlogin">
-              <span>Be Teacher</span>
-              </Link>
-            </Button> */}
-          </div>
+          <div className="flex items-center gap-x-3">
+                 <Button
+                    variant="gradient"
+                    size="sm"
+                    className="hidden lg:inline-block font-tas text-[0.95rem] rounded-2xl"
+                  >
+                       <Link href="/teacherlogin">
+                            Be a Teacher
+                       </Link>
+                  </Button>
+        </div>
+
           <IconButton
             variant="text"
             className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
