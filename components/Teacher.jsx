@@ -3,47 +3,10 @@ import React, { useState } from "react";
 import {
   ChevronRight,
   Upload,
-  GraduationCap,
-  CheckCircle2,
 } from "lucide-react";
 import Navbarr from "./Navbarr";
 
 const TeacherSetup = () => {
-  const [selectedFiles, setSelectedFiles] = useState([]);
-  const [uploadProgress, setUploadProgress] = useState({});
-  const [uploadedFiles, setUploadedFiles] = useState([]);
-
-  const handleFileSelect = (event) => {
-    const files = Array.from(event.target.files);
-    setSelectedFiles(files);
-  };
-
-  console.log(selectedFiles);
-
-  const handleUpload = async () => {
-    for (const file of selectedFiles) {
-      await uploadFile(file);
-    }
-    setSelectedFiles([]);
-  };
-
-  const uploadFile = async (file) => {
-    const formData = new FormData();
-    formData.append("file", file);
-
-    try {
-      const response = await fetch("/api/teacher", {
-        method: "POST",
-        body: formData,
-      });
-
-      if (response.ok) {
-        setUploadedFiles((prev) => [...prev, file.name]);
-      }
-    } catch (error) {
-      console.error("Upload failed:", error);
-    }
-  };
 
   const [form, setForm] = useState({
     fname: "",
@@ -52,15 +15,16 @@ const TeacherSetup = () => {
     contact: "",
     gender: "",
     education: "",
-    document_front_url: "",
-    document_back_url: "",
-    academic_degree_url: "",
+    document_front: null,
+    document_back: null,
+    academic_degree: null,
   });
 
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
+
     if (type === "file") {
-      setForm({ ...form, [name]: files[0]?.name || "" });
+      setForm({ ...form, [name]: files[0] });
     } else {
       setForm({ ...form, [name]: value });
     }
@@ -71,18 +35,9 @@ const TeacherSetup = () => {
 
     const formData = new FormData();
 
-    // text fields
-    formData.append("fname", form.fname);
-    formData.append("lname", form.lname);
-    formData.append("email", form.email);
-    formData.append("contact", form.contact);
-    formData.append("gender", form.gender);
-    formData.append("education", form.education);
-
-    // files
-    formData.append("document_front", form.document_front);
-    formData.append("document_back", form.document_back);
-    formData.append("academic_degree", form.academic_degree);
+    Object.entries(form).forEach(([key, value]) => {
+      if (value) formData.append(key, value);
+    });
 
     const res = await fetch("/api/teacher", {
       method: "POST",
@@ -100,27 +55,22 @@ const TeacherSetup = () => {
         contact: "",
         gender: "",
         education: "",
-        document_front_url: "",
-        document_back_url: "",
-        academic_degree_url: "",
+        document_front: null,
+        document_back: null,
+        academic_degree: null,
       });
     } else {
-      alert(result.error);
+      alert(result.error || "Submission failed");
     }
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 text-black">
       <Navbarr />
-      {/*
-       */}
 
       <div className="flex h-screen overflow-hidden">
         {/* LEFT */}
         <div className="w-full md:w-[35%] bg-[#2f6f5a] text-white flex flex-col items-center justify-center p-8">
-          {/* <div className="w-32 h-32 bg-white rounded-full flex items-center justify-center border-4 border-[#1e4d3f] mb-6">
-              <img src="/application.png" alt="Profile" />
-            </div> */}
           <div className="w-32 h-32 bg-white rounded-full overflow-hidden flex items-center justify-center border-4 border-[#1e4d3f] mb-6">
             <img
               src="/application.png"
@@ -129,7 +79,9 @@ const TeacherSetup = () => {
             />
           </div>
 
-          <h2 className="text-2xl font-extrabold mb-2">Lets get you set up</h2>
+          <h2 className="text-2xl font-extrabold mb-2">
+            Lets get you set up
+          </h2>
           <p className="text-green-100 text-sm text-center">
             It should only take a couple of minutes
           </p>
@@ -140,14 +92,13 @@ const TeacherSetup = () => {
         </div>
 
         {/* RIGHT */}
-        <div className="w-3/5 overflow-y-auto p-12">
+        <div className="w-3/5 overflow-y-auto p-12 bg-white">
           <div className="max-w-4xl">
             <h2 className="text-3xl font-bold mb-8 text-gray-800">
               Personal Information
             </h2>
 
             <form
-              id="teacher-form"
               onSubmit={handleSubmit}
               className="space-y-6"
             >
@@ -227,34 +178,17 @@ const TeacherSetup = () => {
               </div>
 
               <div className="grid grid-cols-2 gap-6">
-                <File
-                  label="Document (Front)"
-                  name="document_front"
-                  onChange={handleChange}
-                />
-                <File
-                  label="Document (Back)"
-                  name="document_back"
-                  onChange={handleChange}
-                />
+                <File label="Document (Front)" name="document_front" onChange={handleChange} />
+                <File label="Document (Back)" name="document_back" onChange={handleChange} />
               </div>
 
               <div className="grid grid-cols-1 gap-6">
-                <File
-                  label="Academic Degree"
-                  name="academic_degree"
-                  onChange={handleChange}
-                />
+                <File label="Academic Degree" name="academic_degree" onChange={handleChange} />
               </div>
 
               <div className="flex justify-center pt-6">
                 <button
-                  onClick={(e) => {
-                    // e.preventDefault();
-                    handleUpload();
-                    console.log("clicked.");
-                  }}
-                  form="teacher-form"
+                  type="submit"
                   className="bg-white border-2 border-black text-black px-10 py-3 rounded-xl font-black"
                 >
                   SUBMIT APPLICATION
@@ -264,22 +198,6 @@ const TeacherSetup = () => {
           </div>
         </div>
       </div>
-
-      {/*
-        <div className="flex justify-center mt-12 pb-8">
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              handleUpload();
-              console.log("clicked.");
-            }}
-            form="teacher-form"
-            className="bg-white border-2 border-black text-black px-10 py-3 rounded-xl font-black"
-          >
-            SUBMIT APPLICATION
-          </button>
-        </div>
-       */}
     </div>
   );
 };
@@ -293,7 +211,9 @@ const Input = ({ label, ...props }) => (
     </label>
     <input
       {...props}
-      className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-emerald-500 focus:outline-none transition-colors"
+      className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg 
+      focus:border-emerald-500 focus:outline-none 
+      text-black caret-black placeholder-gray-400 bg-white"
     />
   </div>
 );
@@ -305,7 +225,9 @@ const Select = ({ label, options, ...props }) => (
     </label>
     <select
       {...props}
-      className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-emerald-500 focus:outline-none transition-colors appearance-none bg-white"
+      className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg 
+      focus:border-emerald-500 focus:outline-none 
+      text-black bg-white"
     >
       <option value="">Select</option>
       {options.map((o) => (
@@ -335,7 +257,7 @@ const Radio = (props) => (
     <input
       type="radio"
       {...props}
-      className="w-4 h-4 text-emerald-600 border-gray-300 focus:ring-emerald-500"
+      className="w-5 h-5 accent-emerald-600 cursor-pointer"
     />
     <span className="text-gray-700">{props.value}</span>
   </label>
