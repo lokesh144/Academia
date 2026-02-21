@@ -68,7 +68,7 @@ const Notices = () => {
     return (
       <div
         key={id}
-        className={`relative flex flex-col m-4 shadow-lg w-[700px] h-[200px] rounded-xl overflow-hidden ${
+        className={`relative flex flex-col m-4 shadow-lg rounded-xl overflow-hidden ${
           isAcademic ? "bg-[#3D72CC]" : "bg-white"
         }`}
       >
@@ -138,17 +138,17 @@ const Notices = () => {
 
   return (
     <div className="bg-white px-3 py-4">
-      <h1 className="text-5xl mx-auto w-fit font-bold mb-4 text-center uppercase text-gray-900 my-6 border-2 border-gray-700 rounded-xl shadow-md px-8 py-3 bg-white">
+      <h1 className="text-3xl md:text-5xl mx-auto w-fit font-bold mb-4 text-center uppercase text-gray-900 my-2 md:my-6 border-2 border-gray-700 rounded-xl shadow-md px-4 md:px-8 py-2 md:py-3 bg-white">
         Notices
       </h1>
 
       {/* CATEGORY ROW */}
-      <div className="flex gap-7 mb-4 border-b pb-1 items-center">
+      <div className="flex gap-4 md:gap-7 mb-4 border-b pb-1 items-center">
         {["all", "general", "academic"].map((type) => (
           <button
             key={type}
             onClick={() => setActiveCategory(type)}
-            className={`text-lg font-semibold pb-1 border-b-2 transition-all ${
+            className={`text-sm md:text-lg font-semibold pb-1 border-b-2 transition-all ${
               activeCategory === type
                 ? "border-black text-black"
                 : "border-transparent text-gray-500 hover:text-black"
@@ -165,9 +165,9 @@ const Notices = () => {
         <div className="ml-auto relative">
           <button
             onClick={() => setShowClassFilter((prev) => !prev)}
-            className="text-lg font-semibold text-gray-700 hover:text-black mr-40"
+            className="text-base md:text-lg font-semibold text-gray-700 hover:text-black md:mr-20"
           >
-            Filter by Class
+            Filter Classes
           </button>
 
           {/* {showClassFilter && (
@@ -191,12 +191,12 @@ const Notices = () => {
             </div>
           )} */}
           {showClassFilter && (
-  <div className="absolute right-6 mt-2 p-4 rounded-xl bg-white shadow-xl border border-gray-200 z-50">
+  <div className="absolute right-0 md:right-10 p-2 md:p-4 w-32 md:w-72 rounded-xl bg-white shadow-md border border-gray-200 z-50">
     <Typography variant="h6" className="mb-4 text-gray-800">
       Select Classes
     </Typography>
 
-    <div className="grid grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-3">
       {orderedClasses.map((cls) => (
         <label
           key={cls}
@@ -234,7 +234,7 @@ const Notices = () => {
       </div>
 
       {/* 2 CARDS PER ROW */}
-      <div className="grid grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-6">
         {filteredNotices.length === 0 ? (
           <p className="text-black font-medium">No notices available</p>
         ) : (
