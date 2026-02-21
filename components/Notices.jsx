@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { supabase } from "@/lib/supabaseClient";
-
+import { Typography, Checkbox } from "@material-tailwind/react";
 const Notices = () => {
   const [noticeData, setNoticeData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -170,7 +170,7 @@ const Notices = () => {
             Filter by Class
           </button>
 
-          {showClassFilter && (
+          {/* {showClassFilter && (
             <div className="absolute right-6 mt-2 border border-black p-4 rounded-lg bg-gray-50 z-50">
               <div className="grid grid-cols-3 gap-6">
                 {orderedClasses.map((cls) => (
@@ -189,7 +189,47 @@ const Notices = () => {
                 ))}
               </div>
             </div>
-          )}
+          )} */}
+          {showClassFilter && (
+  <div className="absolute right-6 mt-2 p-4 rounded-xl bg-white shadow-xl border border-gray-200 z-50">
+    <Typography variant="h6" className="mb-4 text-gray-800">
+      Select Classes
+    </Typography>
+
+    <div className="grid grid-cols-3 gap-4">
+      {orderedClasses.map((cls) => (
+        <label
+          key={cls}
+          htmlFor={`class-${cls}`}
+          className="flex items-center gap-2 cursor-pointer rounded-lg px-2 py-1"
+        >
+          <Checkbox
+            id={`class-${cls}`}
+            checked={selectedClasses.includes(cls)}
+            onChange={() => toggleClass(cls)}
+            ripple={false}
+            className="
+              h-5 w-5
+              border border-gray-400
+              checked:border-black
+              checked:bg-black
+            "
+            containerProps={{
+              className: "p-0",
+            }}
+            iconProps={{
+              className: "text-white",
+            }}
+          />
+
+          <Typography variant="small" className="font-semibold text-gray-700">
+            {cls}
+          </Typography>
+        </label>
+      ))}
+    </div>
+  </div>
+)}
         </div>
       </div>
 
