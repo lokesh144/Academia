@@ -70,7 +70,7 @@ const TeacherSetup = () => {
 
       <div className="flex h-screen overflow-hidden">
         {/* LEFT */}
-        <div className="w-full md:w-[35%] bg-[#2f6f5a] text-white flex flex-col items-center justify-center p-8">
+        <div className="hidden w-full md:w-[35%] bg-[#2f6f5a] text-white md:flex flex-col items-center justify-center p-8">
           <div className="w-32 h-32 bg-white rounded-full overflow-hidden flex items-center justify-center border-4 border-[#1e4d3f] mb-6">
             <img
               src="/application.png"
@@ -80,7 +80,7 @@ const TeacherSetup = () => {
           </div>
 
           <h2 className="text-2xl font-extrabold mb-2">
-            Lets get you set up
+          Apply for Teacher Position
           </h2>
           <p className="text-green-100 text-sm text-center">
             It should only take a couple of minutes
@@ -92,21 +92,20 @@ const TeacherSetup = () => {
         </div>
 
         {/* RIGHT */}
-        <div className="w-3/5 overflow-y-auto p-12 bg-white">
+        <div className="w-full md:w-3/5 overflow-y-auto p-8 md:p-12 bg-white">
           <div className="max-w-4xl">
             <h2 className="text-3xl font-bold mb-8 text-gray-800">
-              Personal Information
+            Register for Teacher
             </h2>
 
             <form
               onSubmit={handleSubmit}
-              className="space-y-6"
+              className="space-y-4 md:space-y-6"
             >
-              <div className="grid grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <Input
                   label="First Name"
                   type="text"
-                  placeholder="John"
                   name="fname"
                   value={form.fname}
                   onChange={handleChange}
@@ -115,7 +114,6 @@ const TeacherSetup = () => {
                 <Input
                   label="Last Name"
                   type="text"
-                  placeholder="Doe"
                   name="lname"
                   value={form.lname}
                   onChange={handleChange}
@@ -123,11 +121,10 @@ const TeacherSetup = () => {
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <Input
                   label="Email"
                   type="email"
-                  placeholder="john@example.com"
                   name="email"
                   value={form.email}
                   onChange={handleChange}
@@ -136,7 +133,6 @@ const TeacherSetup = () => {
                 <Input
                   label="Contact"
                   type="tel"
-                  placeholder="+977 98xxxxxxx"
                   name="contact"
                   value={form.contact}
                   onChange={handleChange}
@@ -144,7 +140,7 @@ const TeacherSetup = () => {
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <Label text="Gender" />
                   <div className="flex gap-6 mt-2">
@@ -177,13 +173,13 @@ const TeacherSetup = () => {
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-6">
-                <File label="Document (Front)" name="document_front" onChange={handleChange} />
-                <File label="Document (Back)" name="document_back" onChange={handleChange} />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <File label="Document (Front)" name="document_front" onChange={handleChange} file={form.document_front}/>
+                <File label="Document (Back)" name="document_back" onChange={handleChange} file={form.document_back} />
               </div>
 
-              <div className="grid grid-cols-1 gap-6">
-                <File label="Academic Degree" name="academic_degree" onChange={handleChange} />
+              <div className="grid grid-cols-2 col-span-1">
+              <File label="Academic Degree" name="academic_degree" onChange={handleChange} file={form.academic_degree} required />
               </div>
 
               <div className="flex justify-center pt-6">
@@ -191,7 +187,7 @@ const TeacherSetup = () => {
                   type="submit"
                   className="bg-white border-2 border-black text-black px-10 py-3 rounded-xl font-black"
                 >
-                  SUBMIT APPLICATION
+                  SUBMIT
                 </button>
               </div>
             </form>
@@ -206,12 +202,12 @@ const TeacherSetup = () => {
 
 const Input = ({ label, ...props }) => (
   <div>
-    <label className="block text-sm font-semibold text-gray-700 mb-2">
+    <label className="block text-base font-semibold text-gray-700 mb-2">
       {label}
     </label>
     <input
       {...props}
-      className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg 
+      className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-lg 
       focus:border-emerald-500 focus:outline-none 
       text-black caret-black placeholder-gray-400 bg-white"
     />
@@ -220,12 +216,12 @@ const Input = ({ label, ...props }) => (
 
 const Select = ({ label, options, ...props }) => (
   <div>
-    <label className="block text-sm font-semibold text-gray-700 mb-2">
+    <label className="block text-base font-semibold text-gray-700 mb-2">
       {label}
     </label>
     <select
       {...props}
-      className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg 
+      className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-lg 
       focus:border-emerald-500 focus:outline-none 
       text-black bg-white"
     >
@@ -239,18 +235,30 @@ const Select = ({ label, options, ...props }) => (
   </div>
 );
 
-const File = ({ label, name, onChange }) => (
+const File = ({ label, name, onChange, file }) => (
   <div>
-    <label className="block text-sm font-semibold text-gray-700 mb-2">
+    <label className="block text-base font-semibold text-gray-700 mb-2">
       {label}
     </label>
-    <label className="flex items-center justify-between w-full px-4 py-3 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-emerald-500 transition-colors bg-white">
-      <span className="text-gray-400">Attach file</span>
+
+    <label className="flex items-center justify-between w-full px-4 py-2.5 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-emerald-500 transition-colors bg-white">
+      <span className="text-gray-500 truncate">
+        {file ? file.name : "Attach file"}
+      </span>
+
       <Upload className="w-5 h-5 text-gray-400" />
-      <input type="file" name={name} onChange={onChange} className="hidden" />
+
+      <input
+        type="file"
+        name={name}
+        onChange={onChange}
+        className="hidden"
+      />
     </label>
   </div>
 );
+
+
 
 const Radio = (props) => (
   <label className="flex items-center gap-2 cursor-pointer">
@@ -264,7 +272,7 @@ const Radio = (props) => (
 );
 
 const Label = ({ text }) => (
-  <label className="block text-sm font-semibold text-gray-700 mb-2">
+  <label className="block text-base font-semibold text-gray-700 mb-2">
     {text}
   </label>
 );

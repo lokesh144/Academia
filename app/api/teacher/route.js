@@ -1,78 +1,114 @@
-import { NextResponse } from "next/server";
-import { supabase } from "@/lib/supabaseClient";
-import { blob } from "stream/consumers";
-
-async function uploadFile(file, name, meme){
-  if(!file) return null;
-
-  console.log(name, meme);
-
-    const res =  await supabase.from("blob").insert([
-      {
-        blob: file,
-        filename: name,
-        meme
-      }
-    ]).select('id')
-
-    console.log(res, 'response')
-}
+import {supabase} from "../../../lib/supabase";
+import { v4 as uuidv4 } from "uuid";
 
 export async function POST(req) {
   try {
-    // for multipart we get formdata instead of parsing json
     const formData = await req.formData();
 
+    const fname = formData.get("fname");
+    const lname = formData.get("lname");
+    const email = formData.get("email");
+    const contact = formData.get("contact");
+    const gender = formData.get("gender");
+    const education = formData.get("education");
 
+    const documentFront = formData.get("document_front");
+    const documentBack = formData.get("document_back");
+    const academicDegree = formData.get("academic_degree");
 
-    const frontDocument = formData.get("file");
-    const bytes = await frontDocument.arrayBuffer();
-    const buffer = Buffer.from(bytes);
-    const frontDocumentId = await uploadFile(buffer, frontDocument.name, frontDocument.type);
-
-    if(frontDocumentId){
-      return NextResponse.json({
-        message: 'all good'
-      })
-    }else{
-      return NextResponse.json({
-        message: 'messed up'
-      })
+    // ✅ Required Validation
+    if (
+      !fname ||
+      !lname ||
+      !email ||
+      !contact ||
+      !gender ||
+      !education ||
+      !academicDegree
+    ) {
+      return Response.json(
+        { error: "All required fields must be filled." },
+        { status: 400 }
+      );
     }
 
-    // const { data, error } = await supabase
-    //   .from("teachers")
-    //   .insert([
-    //     {
-    //       fname,
-    //       lname,
-    //       email,
-    //       contact,
-    //       gender,
-    //       education,
-    //       academic_degree_url,
-    //       document_front_url,
-    //       document_back_url,
-    //     },
-    //   ])
-    //   .select(); // IMPORTANT: returns inserted row
+    let documentFrontPath = null;
+    let documentBackPath = null;
+    let academicDegreePath = null;
 
-    // if (error) {
-    //   return NextResponse.json(
-    //     { error: error.message },
-    //     { status: 400 }
-    //   );
-    // }
+    // 🔹 Upload Academic Degree (Required)
+    if (academicDegree) {
+      const fileExt = academicDegree.name.split(".").pop();
+      const fileName = `${uuidv4()}.${fileExt}`;
+      const filePath = `academic/${fileName}`;
 
-    // return NextResponse.json(
-    //   { success: true, data },
-    //   { status: 200 }
-    // );
-  } catch (err) {
-    console.error(err);
-    return NextResponse.json(
-      { error: "Server error" },
-      { status: 500 }
-    );
+      const { error } = await supabase.storage
+        .from("teacher-documents")
+        .upload(filePath, academicDegree, {
+          contentType: academicDegree.type,
+        });
+
+      if (error) throw error;
+
+      academicDegreePath = filePath;
+    }
+
+    // 🔹 Upload Document Front (Optional)
+    if (documentFront && documentFront.size > 0) {
+      const fileExt = documentFront.name.split(".").pop();
+      const fileName = `${uuidv4()}.${fileExt}`;
+      const filePath = `citizenship/front-${fileName}`;
+
+      const { error } = await supabase.storage
+        .from("teacher-documents")
+        .upload(filePath, documentFront, {
+          contentType: documentFront.type,
+        });
+
+      if (error) throw error;
+
+      documentFrontPath = filePath;
+    }
+
+    // 🔹 Upload Document Back (Optional)
+    if (documentBack && documentBack.size > 0) {
+      const fileExt = documentBack.name.split(".").pop();
+      const fileName = `${uuidv4()}.${fileExt}`;
+      const filePath = `citizenship/back-${fileName}`;
+
+      const { error } = await supabase.storage
+        .from("teacher-documents")
+        .upload(filePath, documentBack, {
+          contentType: documentBack.type,
+        });
+
+      if (error) throw error;
+
+      documentBackPath = filePath;
+    }
+
+    // 🔹 Insert into Database
+    const { error: insertError } = await supabase
+      .from("new-teachers")
+      .insert([
+        {
+          firstName: fname,
+          lastName: lname,
+          Email: email,
+          Contact: contact,
+          Gender: gender,
+          Education: education,
+          document_front: documentFrontPath,
+          document_back: documentBackPath,
+          academic_degree: academicDegreePath,
+        },
+      ]);
+
+    if (insertError) throw insertError;
+
+    return Response.json({ message: "Success" }, { status: 200 });
+  } catch (error) {
+    console.error(error);
+    return Response.json({ error: error.message }, { status: 500 });
   }
 }
