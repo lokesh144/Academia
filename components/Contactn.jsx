@@ -1,9 +1,12 @@
 "use client"
 import React from "react";
 import { Button, Input, Textarea, Typography } from "@material-tailwind/react";
+import Navbarr from "./Navbarr";
 
 export function ContactSection14() {
   return (
+    <>
+    <Navbarr/>
     <section className="px-8 py-8 lg:py-16">
       <div className="container mx-auto text-center">
         <Typography
@@ -130,6 +133,7 @@ export function ContactSection14() {
         </div>
       </div>
     </section>
+    </>
   );
 }
 

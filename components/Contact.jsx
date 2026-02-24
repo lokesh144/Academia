@@ -3,12 +3,14 @@
 import React from 'react'
 import PageTitle from './ui/page-title'
 import { Button, Checkbox, Input, Textarea, Typography } from '@material-tailwind/react'
+
 // import { Input } from '@material-tailwind/react'
 // type PageTitle={section:string,heading:string}
 
 const Contact = () => {
   return (
     <>
+    
      <PageTitle section="Contact Us" heading="Want to work with us?">
             Complete this form and we will get back to you in 24 hours.
           </PageTitle>
