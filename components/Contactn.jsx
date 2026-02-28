@@ -24,9 +24,9 @@ function ContactSection14() {
           <Typography
             variant="h1"
             color="blue-gray"
-            className="mb-4 !text-3xl lg:!text-5xl"
+            className="py-4 md:py-8 !text-3xl lg:!text-5xl"
           >
-            Contact us
+          CONTACT US
           </Typography>
 
           <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 items-start mt-10">
@@ -37,11 +37,11 @@ function ContactSection14() {
 
                 {/* Location */}
                 <div className="flex items-start gap-4">
-                  <div className="p-3 bg-orange-100 rounded-full">
-                    <MapPinIcon className="h-5 w-5 text-orange-500" />
+                  <div className="p-3 bg-blue-100 rounded-full">
+                    <MapPinIcon className="h-5 w-5 text-blue-500" />
                   </div>
                   <div>
-                    <Typography variant="h6">Location</Typography>
+                    <Typography color="black" variant="h6">Location</Typography>
                     <Typography className="text-gray-600">
                       Butwal, Rupandehi, Nepal
                     </Typography>
@@ -50,24 +50,24 @@ function ContactSection14() {
 
                 {/* Email */}
                 <div className="flex items-start gap-4">
-                  <div className="p-3 bg-orange-100 rounded-full">
-                    <EnvelopeIcon className="h-5 w-5 text-orange-500" />
+                  <div className="p-3 bg-blue-100 rounded-full">
+                    <EnvelopeIcon className="h-5 w-5 text-blue-500" />
                   </div>
                   <div>
-                    <Typography variant="h6">Email</Typography>
+                    <Typography color="black" variant="h6">Email</Typography>
                     <Typography className="text-gray-600">
-                      info@ourpeacelandacademy.edu.np
+                    peacelandaca@gmail.com
                     </Typography>
                   </div>
                 </div>
 
                 {/* Phone */}
                 <div className="flex items-start gap-4">
-                  <div className="p-3 bg-orange-100 rounded-full">
-                    <PhoneIcon className="h-5 w-5 text-orange-500" />
+                  <div className="p-3 bg-blue-100 rounded-full">
+                    <PhoneIcon className="h-5 w-5 text-blue-500" />
                   </div>
                   <div>
-                    <Typography variant="h6">Phone</Typography>
+                    <Typography color="black" variant="h6">Phone</Typography>
                     <Typography className="text-gray-600">
                       071-538021
                     </Typography>
@@ -88,6 +88,7 @@ function ContactSection14() {
 
             {/* RIGHT SIDE - FORM CARD */}
             <Card className="shadow-lg">
+                <p className="text-xl text-gray-900 font-semibold pt-4 text-left pl-6">Reach out to us by filling the form below.</p>
               <CardBody>
                 <form className="flex flex-col gap-6">
                   <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
