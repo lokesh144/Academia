@@ -43,7 +43,7 @@ function ContactSection14() {
                   <div>
                     <Typography variant="h6">Location</Typography>
                     <Typography className="text-gray-600">
-                      Banashthali, Balaju, Kathmandu, Nepal
+                      Butwal, Rupandehi, Nepal
                     </Typography>
                   </div>
                 </div>
@@ -56,7 +56,7 @@ function ContactSection14() {
                   <div>
                     <Typography variant="h6">Email</Typography>
                     <Typography className="text-gray-600">
-                      info@samriddhischool.edu.np
+                      info@ourpeacelandacademy.edu.np
                     </Typography>
                   </div>
                 </div>
@@ -69,7 +69,7 @@ function ContactSection14() {
                   <div>
                     <Typography variant="h6">Phone</Typography>
                     <Typography className="text-gray-600">
-                      01-4970590, 4970591
+                      071-538021
                     </Typography>
                   </div>
                 </div>
