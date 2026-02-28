@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Calendar } from "lucide-react";
 import { Clock12 } from 'lucide-react';
 import { Button } from "@material-tailwind/react";
-
+import Navbarr from "../../components/Navbarr";
 const events = [
   {
     id: 1,
@@ -21,7 +21,10 @@ const events = [
 
 export default function EventPage() {
   return (
+    <>
+    <Navbarr/>
     <main className="min-h-screen px-6 py-16 bg-gray-50">
+    
       <h1 className="text-5xl mx-auto w-fit font-bold mb-10 text-center uppercase text-gray-900 border-2 border-gray-700 rounded-xl shadow-md px-8 py-3 bg-white">
         Events
       </h1>
@@ -86,5 +89,6 @@ export default function EventPage() {
         ))}
       </div>
     </main>
+    </>
   );
 }

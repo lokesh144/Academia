@@ -8,6 +8,7 @@ import {
     Textarea,
     Checkbox,
   } from "@material-tailwind/react";
+  import Navbarr from './Navbarr';
 const Events = () => {
   const [events, setEvents]=useState([]);
   const fetchNotice = async () => {
@@ -37,6 +38,8 @@ const Events = () => {
      fetchNotice();
   }, [])
   return (
+    <>
+    <Navbarr/>
     <div className='bg-white'>
         <h1 class="my-10 block font-sans text-black text-2xl lg:text-5xl uppercase font-semibold leading-tight tracking-normal text-center bg-white">
     Upcoming Events
@@ -68,6 +71,7 @@ const Events = () => {
   ))}
    
     </div>
+    </>
   )
 }
 
