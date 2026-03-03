@@ -9,18 +9,20 @@ import {
 
 function TeamCard({ img, name, title }) {
   return (
-    <Card className="rounded-lg shadow-lg h-full flex flex-col">
-      <CardBody className="text-center p-0 pb-4 flex flex-col flex-grow">
-        
-        {/* Image (Reduced Height) */}
-        <img
-          src={img}
-          alt={name}
-          className="h-44 w-full object-cover rounded-t-lg"
-        />
+    <Card className="rounded-lg shadow-lg h-full flex flex-col overflow-hidden">
+      <CardBody className="text-center p-0 flex flex-col flex-grow">
+
+        {/* Image - FIXED (No Head Cut) */}
+       <div className="h-44 w-full bg-gray-100 flex items-center justify-center">
+  <img
+    src={img}
+    alt={name}
+    className="h-full w-full object-contain"
+  />
+</div>
 
         {/* Content */}
-        <div className="flex flex-col flex-grow justify-between px-4 pt-3">
+        <div className="flex flex-col flex-grow justify-between px-4 py-3">
           <div>
             <Typography
               variant="h6"
@@ -35,7 +37,7 @@ function TeamCard({ img, name, title }) {
             </Typography>
           </div>
 
-          {/* Social Icon */}
+          {/* Social */}
           <div className="flex items-center justify-center mt-3">
             <IconButton variant="text" color="gray" size="sm">
               <i className="fa-brands fa-facebook text-base" />
