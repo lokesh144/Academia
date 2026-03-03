@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React from "react";
 import {
   Button,
@@ -26,14 +26,14 @@ function ContactSection14() {
             color="blue-gray"
             className="py-4 md:py-8 !text-3xl lg:!text-5xl"
           >
-          CONTACT US
+            CONTACT US
           </Typography>
 
-          <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 items-start mt-10">
+          <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 items-stretch mt-10">
 
-            {/* LEFT SIDE - CONTACT INFO + MAP */}
-            <Card className="shadow-lg">
-              <CardBody className="text-left space-y-6">
+            {/* LEFT CARD */}
+            <Card className="shadow-lg h-full">
+              <CardBody className="text-left space-y-6 flex flex-col h-full">
 
                 {/* Location */}
                 <div className="flex items-start gap-4">
@@ -41,7 +41,9 @@ function ContactSection14() {
                     <MapPinIcon className="h-5 w-5 text-blue-500" />
                   </div>
                   <div>
-                    <Typography color="black" variant="h6">Location</Typography>
+                    <Typography color="black" variant="h6">
+                      Location
+                    </Typography>
                     <Typography className="text-gray-600">
                       Butwal, Rupandehi, Nepal
                     </Typography>
@@ -54,9 +56,11 @@ function ContactSection14() {
                     <EnvelopeIcon className="h-5 w-5 text-blue-500" />
                   </div>
                   <div>
-                    <Typography color="black" variant="h6">Email</Typography>
+                    <Typography color="black" variant="h6">
+                      Email
+                    </Typography>
                     <Typography className="text-gray-600">
-                    peacelandaca@gmail.com
+                      peacelandaca@gmail.com
                     </Typography>
                   </div>
                 </div>
@@ -67,15 +71,17 @@ function ContactSection14() {
                     <PhoneIcon className="h-5 w-5 text-blue-500" />
                   </div>
                   <div>
-                    <Typography color="black" variant="h6">Phone</Typography>
+                    <Typography color="black" variant="h6">
+                      Phone
+                    </Typography>
                     <Typography className="text-gray-600">
                       071-538021
                     </Typography>
                   </div>
                 </div>
 
-                {/* Map */}
-                <div className="w-full h-72 rounded-lg overflow-hidden">
+                {/* Map (pushes to bottom evenly) */}
+                <div className="w-full h-72 rounded-lg overflow-hidden mt-auto">
                   <iframe
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.949056064806!2d83.47616871063525!3d27.687969376094344!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3996869a41913d23%3A0x5b57759b59cecc4f!2sOur%20Peaceland%20Academy!5e0!3m2!1sen!2snp!4v1725423605230!5m2!1sen!2snp"
                     className="w-full h-full"
@@ -86,11 +92,15 @@ function ContactSection14() {
               </CardBody>
             </Card>
 
-            {/* RIGHT SIDE - FORM CARD */}
-            <Card className="shadow-lg">
-                <p className="text-xl text-gray-900 font-semibold pt-4 text-left pl-6">Reach out to us by filling the form below.</p>
-              <CardBody>
-                <form className="flex flex-col gap-6">
+            {/* RIGHT CARD */}
+            <Card className="shadow-lg h-full">
+              <CardBody className="flex flex-col h-full">
+
+                <p className="text-xl text-gray-900 font-semibold text-left mb-6">
+                  Reach out to us by filling the form below.
+                </p>
+
+                <form className="flex flex-col gap-6 flex-grow">
                   <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
                     <Input
                       type="text"
@@ -120,12 +130,14 @@ function ContactSection14() {
                     rows={6}
                   />
 
-                  <div className="flex justify-start">
-  <Button size="lg" color="gray">
-    Submit
-  </Button>
-</div>
+                  {/* Button pushed to bottom */}
+                  <div className="flex justify-start mt-auto">
+                    <Button size="lg" color="gray">
+                      Submit
+                    </Button>
+                  </div>
                 </form>
+
               </CardBody>
             </Card>
 

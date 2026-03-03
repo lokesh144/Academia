@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React from "react";
 import {
   Card,
@@ -9,29 +9,40 @@ import {
 
 function TeamCard({ img, name, title }) {
   return (
-    <Card className="rounded-lg shadow-xl">
-      <CardBody className="text-center p-0 pb-4">
+    <Card className="rounded-lg shadow-lg h-full flex flex-col">
+      <CardBody className="text-center p-0 pb-4 flex flex-col flex-grow">
+        
+        {/* Image (Reduced Height) */}
         <img
           src={img}
           alt={name}
-          className="h-64 w-full object-cover rounded-t-lg mb-4"
+          className="h-44 w-full object-cover rounded-t-lg"
         />
-        <Typography
-          variant="h4"
-          color="blue-gray"
-          className="!font-medium text-lg"
-        >
-          {name}
-        </Typography>
-        <Typography className="mb-2 !text-base !font-semibold text-gray-600">
-          {title}
-        </Typography>
 
-        <div className="flex items-center justify-center gap-1.5">
-          <IconButton variant="text" color="gray">
-            <i className="fa-brands fa-facebook text-lg" />
-          </IconButton>
+        {/* Content */}
+        <div className="flex flex-col flex-grow justify-between px-4 pt-3">
+          <div>
+            <Typography
+              variant="h6"
+              color="blue-gray"
+              className="font-semibold text-base"
+            >
+              {name}
+            </Typography>
+
+            <Typography className="text-sm font-medium text-gray-600 mt-1">
+              {title}
+            </Typography>
+          </div>
+
+          {/* Social Icon */}
+          <div className="flex items-center justify-center mt-3">
+            <IconButton variant="text" color="gray" size="sm">
+              <i className="fa-brands fa-facebook text-base" />
+            </IconButton>
+          </div>
         </div>
+
       </CardBody>
     </Card>
   );
@@ -73,13 +84,15 @@ const Teamn = () => {
           </Typography>
         </div>
 
-        {/* GRID LAYOUT */}
-        <div className="grid gap-8 
-                        grid-cols-1 
-                        sm:grid-cols-2 
-                        md:grid-cols-3 
-                        lg:grid-cols-4 
-                        xl:grid-cols-5">
+        <div
+          className="grid gap-6 
+          grid-cols-1 
+          sm:grid-cols-2 
+          md:grid-cols-3 
+          lg:grid-cols-4 
+          xl:grid-cols-5 
+          items-stretch"
+        >
           {members.map((member, index) => (
             <TeamCard key={index} {...member} />
           ))}
