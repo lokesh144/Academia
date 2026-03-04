@@ -166,7 +166,7 @@ const EventCard = () => {
           <Typography
             variant="h1"
             color="blue-gray"
-            className="my-2 !text-2xl lg:!text-4xl uppercase"
+            className="my-20 !text-2xl lg:!text-4xl uppercase"
           >
             RECENT Posts
           </Typography>

@@ -5,8 +5,10 @@ import {
   CardBody,
   IconButton,
   Typography,
+  Button,
 } from "@material-tailwind/react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
+import { useRouter } from "next/navigation";
 
 function TeamCard({ img, name, title }) {
   return (
@@ -64,6 +66,7 @@ const Teamn = () => {
   const isDragging = useRef(false);
   const startX = useRef(0);
   const scrollLeft = useRef(0);
+  const router = useRouter();
 
   const handleMouseDown = (e) => {
     isDragging.current = true;
@@ -119,7 +122,6 @@ const Teamn = () => {
           </Typography>
         </div>
 
-        {/* LEFT BUTTON */}
         <IconButton
           onClick={scrollLeftBtn}
           className="!absolute left-4 top-1/2 -translate-y-1/2 z-50 bg-black/50"
@@ -127,7 +129,6 @@ const Teamn = () => {
           <ChevronLeftIcon className="h-6 w-6 text-white" />
         </IconButton>
 
-        {/* RIGHT BUTTON */}
         <IconButton
           onClick={scrollRightBtn}
           className="!absolute right-4 top-1/2 -translate-y-1/2 z-50 bg-black/50"
@@ -150,6 +151,18 @@ const Teamn = () => {
             ))}
           </div>
         </div>
+
+        {/* ✅ ADDED BUTTON BELOW CAROUSEL */}
+        <div className="flex justify-center ">
+          <Button
+            color="gray"
+            size="lg"
+            onClick={() => router.push("/team")}
+          >
+            All Team
+          </Button>
+        </div>
+
       </div>
     </section>
   );
