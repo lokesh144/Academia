@@ -9,20 +9,20 @@ import {
 
 function TeamCard({ img, name, title }) {
   return (
-    <Card className="rounded-lg shadow-lg h-full flex flex-col overflow-hidden">
+    <Card className="rounded-lg h-full flex flex-col overflow-hidden border border-gray-200">
       <CardBody className="text-center p-0 flex flex-col flex-grow">
 
-        {/* Image - FIXED (No Head Cut) */}
-       <div className="h-44 w-full bg-gray-100 flex items-center justify-center">
-  <img
-    src={img}
-    alt={name}
-    className="h-full w-full object-contain"
-  />
-</div>
+        {/* Image */}
+        <div className="h-52 w-full overflow-hidden bg-gray-100">
+          <img
+            src={img}
+            alt={name}
+            className="h-full w-full object-cover object-center"
+          />
+        </div>
 
         {/* Content */}
-        <div className="flex flex-col flex-grow justify-between px-4 py-3">
+        <div className="flex flex-col flex-grow justify-between px-4 py-4">
           <div>
             <Typography
               variant="h6"
@@ -38,7 +38,7 @@ function TeamCard({ img, name, title }) {
           </div>
 
           {/* Social */}
-          <div className="flex items-center justify-center mt-3">
+          <div className="flex items-center justify-center mt-4">
             <IconButton variant="text" color="gray" size="sm">
               <i className="fa-brands fa-facebook text-base" />
             </IconButton>
@@ -76,7 +76,7 @@ const Teamn = () => {
   return (
     <section className="bg-white py-16 px-6">
       <div className="container mx-auto">
-        <div className="mb-12 text-center">
+        <div className="mb-14 text-center">
           <Typography
             variant="h1"
             color="blue-gray"
@@ -87,7 +87,7 @@ const Teamn = () => {
         </div>
 
         <div
-          className="grid gap-6 
+          className="grid gap-x-6 gap-y-12 
           grid-cols-1 
           sm:grid-cols-2 
           md:grid-cols-3 
