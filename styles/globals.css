@@ -207,3 +207,22 @@ body {
     display: table;
     text-align: center;
   }
+.input{
+  width:100%;
+  padding:10px;
+  border:1px solid #cbd5e1;
+  border-radius:6px;
+  background:white;
+  color:#111827;
+  font-size:14px;
+}
+
+.input::placeholder{
+  color:#6b7280;
+}
+
+.input:focus{
+  outline:none;
+  border-color:#2563eb;
+  box-shadow:0 0 0 1px #2563eb;
+}
