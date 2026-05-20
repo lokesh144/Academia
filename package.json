@@ -30,6 +30,7 @@
     "react": "^18",
     "react-dom": "^18",
     "react-hot-toast": "^2.6.0",
+    "react-nepali-datepicker-bs": "^2.2.4",
     "react-router-dom": "^6.23.1",
     "react-toastify": "^10.0.5",
     "sweetalert2": "^11.26.18",

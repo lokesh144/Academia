@@ -97,6 +97,16 @@ const Navbarr = () => {
         Notices
       </Link>
     </Typography>
+    <Typography
+      as="li"
+      variant=""
+      color="blue-gray"
+      className="p-1 font-tas text-[1.08rem] font-bold"
+    >
+      <Link href="/absent-students" className="flex items-center">
+        Absent
+      </Link>
+    </Typography>
       
     <Typography
       as="li"

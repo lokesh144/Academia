@@ -11,49 +11,62 @@ import {
   normalizeNoticeClasses,
 } from "@/lib/noticeClasses";
 
-const NoticeCard = ({ id, title, descrp, classes, category }) => {
-  const isAcademic = category === "academic";
-
+const NoticeCard = ({
+  id,
+  title,
+  descrp,
+  classes,
+  imageUrl,
+  created_at,
+}) => {
   return (
-    <div
-      className={`relative flex flex-col m-4 shadow-lg rounded-xl overflow-hidden ${
-        isAcademic ? "bg-[#3D72CC]" : "bg-white"
-      }`}
-    >
-      <div
-        className={`${
-          isAcademic ? "academic-border rounded-xl" : "shining-border"
-        }`}
-      >
-        <div className="pt-5 pr-5 pb-2 pl-5">
-          <Image src="/notice.png" width={30} height={30} alt="Notice" />
-
-          <h5 className="mb-2 text-[1.3rem] font-semibold text-black">{title}</h5>
-
-          <p className="text-base font-light text-black">{descrp}</p>
-
-          {isAcademic && (
-            <div className="absolute bottom-0 -right-16 top-3 overflow-hidden">
-              <Image
-                src="/academic.png"
-                width={120}
-                height={300}
-                alt="Academic"
-              />
-            </div>
-          )}
+    <div className="bg-white border-2 border-gray-500 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300">
+      
+      {/* Notice Image */}
+      {imageUrl && (
+        <div className="w-full h-56 overflow-hidden">
+          <Image
+            src={imageUrl}
+            alt={title}
+            width={800}
+            height={400}
+            className="w-full h-full object-cover"
+          />
         </div>
+      )}
 
-        <div className="flex flex-wrap px-4 mb-3">
-          {normalizeNoticeClasses(classes).map((tag, index) => (
-            <span
-              key={index}
-              className="bg-[#3d6f5c] text-white text-sm font-medium mr-2 mb-2 px-2.5 py-0.5 rounded"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
+      {/* Content */}
+      <div className="p-5">
+        {/* Date */}
+        {created_at && (
+          <p className="text-sm text-gray-500 mb-2">
+            {new Date(created_at).toLocaleDateString()}
+          </p>
+        )}
+
+        {/* Title */}
+        <h2 className="text-xl font-semibold text-gray-900 mb-3 leading-snug">
+          {title}
+        </h2>
+
+        {/* Description */}
+        <p className="text-gray-700 text-[0.97rem] leading-relaxed mb-4">
+          {descrp}
+        </p>
+
+        {/* Classes */}
+        {classes && normalizeNoticeClasses(classes).length > 0 && (
+          <div className="flex flex-wrap gap-2">
+            {normalizeNoticeClasses(classes).map((tag, index) => (
+              <span
+                key={index}
+                className="text-sm border border-gray-300 text-gray-700 px-3 py-1 rounded-full"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
